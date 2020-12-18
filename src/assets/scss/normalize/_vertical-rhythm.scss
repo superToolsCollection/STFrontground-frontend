@@ -60,9 +60,56 @@
   @include normalize-rhythm(line-height, $lines, $font-size);
 }
 
+// superTool项目添加的
 @function vh($value){
   @return ($value*100/1024)+vh;
 }
 @function vw($value){
   @return ($value*100/1444)+vw;
 }
+
+// 占位符的颜色
+@mixin placeholder-color($name:input, $color: rgba(212, 217, 226, 100)) {
+  #{$name}::-webkit-input-placeholder{
+    color:$color;
+  }
+  #{$name}::-moz-placeholder{   /* Mozilla Firefox 19+ */
+    color:$color;
+  }
+  #{$name}:-moz-placeholder{    /* Mozilla Firefox 4 to 18 */
+    color:$color;
+  }
+  #{$name}:-ms-input-placeholder{  /* Internet Explorer 10-11 */
+    color:$color;
+  }
+}
+
+// 鼠标停留时显示的图标，默认是 pointer即小手
+@mixin hoverCursor($name:'&',$cursor:pointer,) {
+  #{$name}:hover{
+    cursor: $cursor;
+  }
+}
+
+//输入界面提示输入信息格式有误
+@mixin alertWrong($name,$child,$content:'请输入正确格式'){
+  #{$name}::after{
+    position: absolute;
+    bottom: vh(-18);
+    right: 0;
+    height: vh(18);
+  
+    color: red;
+  
+    font-size: vh(12);
+    line-height: vh(18);
+    text-align: right;
+    font-family: NotoSerifSC-Regular;
+    content: $content;
+  }
+
+  #{$name} #{$child}{
+    border-bottom-color: red;
+}
+}
+
