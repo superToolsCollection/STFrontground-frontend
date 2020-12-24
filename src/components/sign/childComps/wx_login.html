@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 生成微信登录二维码 -->
+    <div id="weixin"></div>
+
+    <script src="./wxLogin.js" type="text/javascript"></script>
+    <script>
+        // 生成微信二维码，工具类，这个类是从腾讯下载的
+        var obj = new WxLogin({
+            id:'weixin',
+            appid:'wx7287a60bb700fd21',
+            scope:'snsapi_login',
+            redirect_uri:"http://www.txjava.cn/loginServlet.js"
+            // redirect_uri:"http://localhost:4040"
+        })
+    </script>
+</body>
+</html>
