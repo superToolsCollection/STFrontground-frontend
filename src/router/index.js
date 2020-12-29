@@ -1,10 +1,12 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import sign from 'components/sign/sign.vue'
-import signIn from 'components/sign/childComps/signIn.vue'
-import signUp from 'components/sign/childComps/signUp.vue'
-import resetPs from 'components/sign/childComps/resetPs.vue'
+import sign from 'views/sign/sign.vue'
+import signIn from 'views/sign/childComps/signIn.vue'
+import signUp from 'views/sign/childComps/signUp.vue'
+import resetPs from 'views/sign/childComps/resetPs.vue'
+
+import accountDetail from 'views/accountDetail/accountDetail.vue'
 
 Vue.use(VueRouter)
 
@@ -12,8 +14,13 @@ const routes = [
 
   {
     path: '/',
-    redirect: '/sign/signIn'
+    component: accountDetail
   },
+
+  // {
+  //   path: '/',
+  //   redirect: '/sign/signIn'
+  // },
 
   {
     path: '/sign',

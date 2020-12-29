@@ -157,12 +157,12 @@ export default{
     }
 }
 </script>
-<style lang='scss'>
+<style lang='scss' scoped>
 @import "scss-normalize";
     .pwContainer{
         height: 100%;
         width: 100%;
-        // border: 2px solid blue;
+        // border: 2px solid red;
         box-sizing: border-box;
         font-family: NotoSerifSC-Regular;
 

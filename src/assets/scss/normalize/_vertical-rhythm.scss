@@ -113,3 +113,16 @@
 }
 }
 
+//清浮动
+@mixin clearFloat() {
+   // 清浮动, 父元素计算高度时也把子元素的高度算进去
+  &::after{
+   content: "";
+   display: block;
+   clear: both;
+   height: 0;/*兼容旧浏览器 */
+   visibility: hidden;/*兼容旧浏览器 */
+  }
+  *zoom:1;/*兼容IE6~7浏览器 */
+}
+

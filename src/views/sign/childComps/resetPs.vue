@@ -1,7 +1,7 @@
 <template>
     <div class="upContainer">
         <div class="Title">
-            <div class="txt">免费注册</div>
+            <div class="txt">重置密码</div>
         </div>
 
         <div class="center">
@@ -18,13 +18,7 @@
             </div>
         </div>
 
-        <div class="rule">
-            <input type="checkbox" id="read" value="read">
-            <label for="read"> 我已阅读</label>
-            <span>《##服务协议》</span>
-            <span>《隐私协议》</span>
-        </div>
-        <button class="login" :disabled="logActive">注册账号</button>
+        <button class="login" :disabled="logActive">确定</button>
         <div class="textShow">
             <span class="txt1">已有账号？</span>
             <a class="txt2" @click="toSignIn">马上登陆</a>
@@ -121,15 +115,16 @@ export default{
         },
         toSignIn:function () {
             this.$router.push('/sign/signIn')
-        }   
+        }    
     }
 }
 </script>
-<style lang='scss'>
+<style lang='scss' scoped>
 @import "scss-normalize";
-    .upContainer{
+    .resetPsContainer{
         height: 100%;
         width: 100%;
+        // border: 2px solid blue;
         box-sizing: border-box;
         font-family: NotoSerifSC-Regular;
         position: relative;
@@ -319,51 +314,9 @@ export default{
 
             @include alertWrong('.alertPhWrong','.phInput','请输入正确的手机号格式');
             @include alertWrong('.alertVfWrong','.vfInput','请输入正确的验证码');
-            @include alertWrong('.alertPwWrong','.pwInput','请输入正确的密码格式');
+            @include alertWrong('.alertPwWrong','.pwInput','新密码：6-16位字符，包含字母和数字');
         }
 
-        .rule{
-            position: absolute;
-            top: vh(351);
-            right: 0;
-            left: 0;
-            margin-right: auto;
-            margin-left: auto;
-            width: vh(380);
-            box-sizing: border-box;
-            font-size: vh(12);
-            text-align: left;
-            font-family: NotoSerifSC-Regular;
-            color: rgba(102, 102, 102, 100);
-            line-height: vh(18);
-
-            &:nth-child(n){
-                float: left;
-                height: vh(18);
-            }
-           
-            input{
-                height: vh(12);
-                width: vh(12);
-            }
-            span{
-                display: inline-block;
-                color: rgba(153, 153, 153, 100);
-                color: rgba(3, 187, 122, 100);
-                @include hoverCursor;
-            }
-
-            // 清浮动, 父元素计算高度时也把子元素的高度算进去
-            &::after{
-                content: "";
-                display: block;
-                clear: both;
-                height: 0;/*兼容旧浏览器 */
-                visibility: hidden;/*兼容旧浏览器 */
-            }
-            *zoom:1;/*兼容IE6~7浏览器 */
-
-        }
         .login{
             position: absolute;
             top: vh(394);
@@ -389,9 +342,6 @@ export default{
             &:disabled{
                 background: #ccc;
             }
-
-           
-
 
         }
 

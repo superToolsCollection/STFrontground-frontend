@@ -40,7 +40,7 @@ export default{
     }
 }
 </script>
-<style lang='scss'>
+<style lang='scss' scoped>
 @import "scss-normalize";
 .container{
     // border: 1px solid red;
