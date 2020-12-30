@@ -3,29 +3,46 @@
     <div class="title"><span>账号资料</span></div>
     <div class="inforDetail">
         <div class="inputComps">
-            <div class="container"><input-comp></input-comp></div>
-            <div class="end"></div>
+            <input-comp class="inputBox" title="用户名" placeholder="输入您的用户名" alter="请输入正确的用户名"></input-comp>
+            <input-comp class="inputBox" title="电子邮箱" placeholder="注册并验证邮箱" alter="请输入正确的邮箱名"></input-comp>
+            <input-comp class="inputBox" title="QQ账号" placeholder="输入您的QQ账号" alter="请输入正确的QQ账号"></input-comp>
+            <input-comp class="inputBox" title="微信账号" placeholder="输入您的微信账号" alter="请输入正确的微信账号"></input-comp>
         </div>
-        <div class="profileImg"><img></div>
+        <div class="profileImg"><img :src="profile" alt=""></div>
         <button class="ensure">确定</button>
         <button class="cancle">取消</button>
     </div>
-    <div class="changePs"> </div>
+
+    <div class="changePs">
+        <div class="inputComps">
+            <input-comp class="inputBox" title="原密码" placeholder="输入原密码以修改密码" alter="密码必须有8-16个字符，并包含至少1个大写字母，1个小写字母和1个数字" 
+            inputType="password" test="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{8,16}$/" @valueChange=valueChange></input-comp>
+            <input-comp class="inputBox" title="新密码" placeholder="输入您的新密码" alter="请输入正确的密码格式" inputType="password"></input-comp>
+            <input-comp class="inputBox" title="确认密码" placeholder="再次输入您的新密码" alter="请输入正确的密码格式" inputType="password"></input-comp>
+        </div>
+        <button class="ensure">确定</button>
+        <button class="cancle">取消</button>
+    </div>
 </div>
 </template>
 <script>
 import inputComp from './childComps/inputComp.vue'
+import profileImg from 'assets/img/head.svg'
 export default{
     components:{
         inputComp
     },
     data(){
        return {
+           profile: profileImg,
        }
     },
     computed:{
     },
     methods:{
+        valueChange(newValue){
+            console.log(newValue)
+        }
     }
 }
 </script>
@@ -65,7 +82,7 @@ export default{
             color: rgba(51, 51, 51, 100);
             font-size: vh(14);
 
-           }
+        }
         position: absolute;
         top: vh(200);
         left: 0;
@@ -86,34 +103,54 @@ export default{
             top: vh(63);
             left: vh(58);
             width: vh(562);
-            height: vh(303);
-            border: 1px solid red;
-
-            .container{
-                height: vh(37);
-                width: 100%;
-            }
-
-           
+            height: vh(320);
+            // border: 1px solid red;
 
             &::after{
                 content: '';
                 position: absolute;
-                bottom: 0;
+                bottom: vh(-1);
                 left: 0;
                 background-color: rgba(3, 187, 122, 100);;
-                width: vh(562);
+                width: 100%;
                 border: vh(1) solid rgba(243,243,243,100);
+            }
+            .inputBox:nth-child(n){
+                margin-bottom: vh(41);
             }
 
         }
+        // .inputComps:nth-child(n){
+        //     // margin-bottom: vh(41);
+        //     border: 1px solid red;
+        // }
         .profileImg{
             position: absolute;
             top: vh(116);
             left: vh(675);
-            width: vh(227);
-            height: vh(203);
-            border: 1px solid red;
+            width: vh(192);
+            height: vh(192);
+
+            border-radius: 4px 4px 4px 4px;
+            background-color: rgba(255, 255, 255, 100);
+            text-align: center;
+            border: 1px solid rgba(0, 0, 0, 0.15);
+
+            img{
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                margin: auto;
+
+                width: vh(172);
+                height: vh(172);
+
+                @include hoverCursor;
+
+
+            }
         }
         .ensure,.cancle{
             line-height: vh(20);
@@ -121,6 +158,7 @@ export default{
             text-align: center;
             font-size: vh(18);
             border: 1px solid rgba(153, 153, 153, 100);
+            @include hoverCursor;
         }
         .ensure{
             position: absolute;
@@ -131,7 +169,9 @@ export default{
 
             
             background-color: rgba(57, 109, 248, 100);           
-            color: rgba(255, 255, 255, 100);           
+            color: rgba(255, 255, 255, 100);
+            outline: none;
+            
         }
         .cancle{
             position: absolute;
@@ -142,9 +182,13 @@ export default{
 
             background-color: rgba(255, 255, 255, 100);
             color: rgba(51, 51, 51, 100);
+            outline: none;   
+            
         }
         
     }
+
+
     .changePs{
         position: absolute;
         top: vh(817);
@@ -154,8 +198,79 @@ export default{
         margin-right: auto;
         width: vh(944);
         height: vh(389);
-        border: 1px solid red;
         box-sizing: border-box;
+
+        border-radius: vh(10);
+        color: rgba(16,16,16,100);
+        box-shadow: 0 vh(2) vh(10) 0 rgba(0,0,0,0.1);
+
+        &::before{
+            content: '修改密码';
+            position: absolute;
+            top: vh(-24);
+            left: 0;
+            width: vh(63);
+            height: vh(20);
+
+            color: rgba(51, 51, 51, 100);
+            font-size: vh(14);
+
+        }
+
+        .inputComps{
+            position: absolute;
+            top: vh(63);
+            left: vh(58);
+            width: vh(562);
+            height: vh(240);
+
+            &::after{
+                content: '';
+                position: absolute;
+                bottom: vh(-1);
+                left: 0;
+                background-color: rgba(3, 187, 122, 100);;
+                width: 100%;
+                border: vh(1) solid rgba(243,243,243,100);
+            }
+            .inputBox:nth-child(n){
+                margin-bottom: vh(41);
+            }
+
+        }
+        .ensure,.cancle{
+            line-height: vh(20);
+            border-radius: vh(4);
+            text-align: center;
+            font-size: vh(18);
+            border: 1px solid rgba(153, 153, 153, 100);
+            @include hoverCursor;
+        }
+        .ensure{
+            position: absolute;
+            top: vh(401);
+            left: vh(155);
+            width: vh(76);
+            height: vh(38);
+
+            
+            background-color: rgba(57, 109, 248, 100);           
+            color: rgba(255, 255, 255, 100);
+            outline: none;
+            
+        }
+        .cancle{
+            position: absolute;
+            top: vh(401);
+            left: vh(296);
+            width: vh(76);
+            height: vh(38);
+
+            background-color: rgba(255, 255, 255, 100);
+            color: rgba(51, 51, 51, 100);
+            outline: none;   
+            
+        }
     }
 }
 
