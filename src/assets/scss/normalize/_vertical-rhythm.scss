@@ -62,13 +62,13 @@
 
 // superTool项目添加的
 @function vh($value){
-  // @return $value+px;
-  @return ($value*100/1444)+vw;
+  @return $value+px;
+  // @return ($value*100/1444)+vw;
   // @return ($value*100/1024)+vh;
 }
 @function vw($value){
-  // @return $value+px;
-  @return ($value*100/1444)+vw;
+  @return $value+px;
+  // @return ($value*100/1444)+vw;
 }
 
 // 占位符的颜色
