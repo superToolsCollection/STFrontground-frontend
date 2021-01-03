@@ -167,7 +167,7 @@ export default{
         font-family: NotoSerifSC-Regular;
 
         .pwTitle,.vfTitle{
-            width: vh(130);
+            width: vw(130);
             height: vh(27);
             
 
@@ -182,7 +182,7 @@ export default{
         .pwTitle{
             position: absolute;
             top: vh(122);
-            left: vh(120);
+            left: vw(120);
             
             
         }
@@ -190,7 +190,7 @@ export default{
         .vfTitle{
             position: absolute;
             top: vh(122);
-            right: vh(122);
+            right: vw(122);
         }
 
         .Title{
@@ -219,7 +219,7 @@ export default{
             margin-right: auto;
 
             height: vh(108);
-            width: vh(380);
+            width: vw(380);
 
             text-align: center;
 
@@ -255,14 +255,14 @@ export default{
                 margin-top: vh(36);
                 // text-align: center;
                 .pwInput{
-                    padding-right: vh(24);
+                    padding-right: vw(24);
                 }
                 img{
                     position: absolute;
                     right: 0;
                     bottom: 0;
                     // border: 1px solid red;
-                    width: vh(24);
+                    width: vw(24);
                     height: vh(24);
                     @include hoverCursor;
                 }
@@ -318,7 +318,7 @@ export default{
             margin-right: auto;
 
             height: vh(108);
-            width: vh(380);
+            width: vw(380);
             // border: 1px solid red;
 
             text-align: center;
@@ -343,7 +343,7 @@ export default{
                 border-right-style: none;
                 border-left-style: none;
                 border-bottom-color: rgba(212, 217, 226, 100);
-                border-bottom-width: vh(1);
+                border-bottom-width: vw(1);
                 outline: none;
 
             }
@@ -370,7 +370,7 @@ export default{
                     bottom: vh(10);
                     // border: 1px solid red;
                     box-sizing: border-box;
-                    width: vh(104);
+                    width: vw(104);
                     height: vh(36);
                     font-size: vh(12);
                     text-align: center;
@@ -430,7 +430,7 @@ export default{
         .fgpw{
             position: absolute;
             top: vh(340);
-            right: vh(71) ;
+            right: vw(71) ;
             // width: vh(48);
             height: vh(18);
             font-size: vh(12);
@@ -446,7 +446,7 @@ export default{
             right: 0;
             margin-left: auto;
             margin-right: auto;
-            width: vh(380);
+            width: vw(380);
             height: vh(56);
 
             line-height: vh(23);

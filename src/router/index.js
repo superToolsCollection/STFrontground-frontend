@@ -8,20 +8,29 @@ import resetPs from 'views/sign/childComps/resetPs.vue'
 
 import accountDetail from 'views/accountDetail/accountDetail.vue'
 
+import main from 'views/main/main.vue'
+
 Vue.use(VueRouter)
 
 const routes = [
 
-  {
-    path: '/',
-    component: accountDetail
-  },
-
   // {
   //   path: '/',
-  //   redirect: '/sign/signIn'
+  //   component: accountDetail
   // },
 
+  {
+    path: '/',
+    redirect: '/main'
+  },
+  {
+    path:'/main',
+    component: main
+  },
+  {
+    path: '/account',
+    component: accountDetail,
+  },
   {
     path: '/sign',
     component: sign,

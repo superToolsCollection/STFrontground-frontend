@@ -61,8 +61,8 @@ export default{
         span{
             display: inline-block;
             position: relative;
-            right: vh(411);
-            width: vh(122);
+            right: vw(411);
+            width: vw(122);
             height: vh(56);
             color: rgba(16,16,16,100);
             font-size: vh(24);
@@ -76,7 +76,7 @@ export default{
             position: absolute;
             top: vh(-24);
             left: 0;
-            width: vh(63);
+            width: vw(63);
             height: vh(20);
 
             color: rgba(51, 51, 51, 100);
@@ -89,7 +89,7 @@ export default{
         right: 0;
         margin-left: auto;
         margin-right: auto;
-        width: vh(944);
+        width: vw(944);
         height: vh(492);
         // border: 1px solid red;
         box-sizing: border-box;
@@ -101,8 +101,8 @@ export default{
         .inputComps{
             position: absolute;
             top: vh(63);
-            left: vh(58);
-            width: vh(562);
+            left: vw(58);
+            width: vw(562);
             height: vh(320);
             // border: 1px solid red;
 
@@ -127,8 +127,8 @@ export default{
         .profileImg{
             position: absolute;
             top: vh(116);
-            left: vh(675);
-            width: vh(192);
+            left: vw(675);
+            width: vw(192);
             height: vh(192);
 
             border-radius: 4px 4px 4px 4px;
@@ -144,7 +144,7 @@ export default{
                 right: 0;
                 margin: auto;
 
-                width: vh(172);
+                width: vw(172);
                 height: vh(172);
 
                 @include hoverCursor;
@@ -163,8 +163,8 @@ export default{
         .ensure{
             position: absolute;
             top: vh(401);
-            left: vh(155);
-            width: vh(76);
+            left: vw(155);
+            width: vw(76);
             height: vh(38);
 
             
@@ -176,8 +176,8 @@ export default{
         .cancle{
             position: absolute;
             top: vh(401);
-            left: vh(296);
-            width: vh(76);
+            left: vw(296);
+            width: vw(76);
             height: vh(38);
 
             background-color: rgba(255, 255, 255, 100);
@@ -196,7 +196,7 @@ export default{
         right: 0;
         margin-left: auto;
         margin-right: auto;
-        width: vh(944);
+        width: vw(944);
         height: vh(389);
         box-sizing: border-box;
 
@@ -209,7 +209,7 @@ export default{
             position: absolute;
             top: vh(-24);
             left: 0;
-            width: vh(63);
+            width: vw(63);
             height: vh(20);
 
             color: rgba(51, 51, 51, 100);
@@ -220,8 +220,8 @@ export default{
         .inputComps{
             position: absolute;
             top: vh(63);
-            left: vh(58);
-            width: vh(562);
+            left: vw(58);
+            width: vw(562);
             height: vh(240);
 
             &::after{
@@ -249,8 +249,8 @@ export default{
         .ensure{
             position: absolute;
             top: vh(401);
-            left: vh(155);
-            width: vh(76);
+            left: vw(155);
+            width: vw(76);
             height: vh(38);
 
             
@@ -262,8 +262,8 @@ export default{
         .cancle{
             position: absolute;
             top: vh(401);
-            left: vh(296);
-            width: vh(76);
+            left: vw(296);
+            width: vw(76);
             height: vh(38);
 
             background-color: rgba(255, 255, 255, 100);

@@ -144,7 +144,7 @@ export default{
 
             
             top: vh(58);
-            width: vh(380);
+            width: vw(380);
             height: vh(62);
 
             text-align: center;
@@ -183,7 +183,7 @@ export default{
             margin-right: auto;
 
             height: vh(180);
-            width: vh(380);
+            width: vw(380);
             // border: 1px solid red;
 
             text-align: center;
@@ -209,7 +209,7 @@ export default{
                 border-right-style: none;
                 border-left-style: none;
                 border-bottom-color: rgba(212, 217, 226, 100);
-                border-bottom-width: vh(1);
+                border-bottom-width: vw(1);
                 outline: none;
 
                 width: 100%;
@@ -223,7 +223,7 @@ export default{
                 margin-top: vh(36);
                 // text-align: center;
                 .vfInput{
-                    padding-right: vh(104);
+                    padding-right: vw(104);
                     text-align: left;
                 }
                 button{
@@ -232,7 +232,7 @@ export default{
                     bottom: vh(10);
                     // border: 1px solid red;
                     box-sizing: border-box;
-                    width: vh(104);
+                    width: vw(104);
                     height: vh(36);
                     font-size: vh(12);
                     text-align: center;
@@ -256,14 +256,14 @@ export default{
                 margin-top: vh(36);
                 // text-align: center;
                 .pwInput{
-                    padding-right: vh(24);
+                    padding-right: vw(24);
                 }
                 img{
                     position: absolute;
                     right: 0;
                     bottom: 0;
                     // border: 1px solid red;
-                    width: vh(24);
+                    width: vw(24);
                     height: vh(24);
                     @include hoverCursor;
                 }
@@ -329,7 +329,7 @@ export default{
             left: 0;
             margin-right: auto;
             margin-left: auto;
-            width: vh(380);
+            width: vw(380);
             box-sizing: border-box;
             font-size: vh(12);
             text-align: left;
@@ -344,7 +344,7 @@ export default{
            
             input{
                 height: vh(12);
-                width: vh(12);
+                width: vw(12);
             }
             span{
                 display: inline-block;
@@ -364,7 +364,7 @@ export default{
             right: 0;
             margin-left: auto;
             margin-right: auto;
-            width: vh(380);
+            width: vw(380);
             height: vh(56);
 
             line-height: vh(23);

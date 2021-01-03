@@ -50,14 +50,14 @@ export default{
         position: relative;
         top: vh(120);
         height: vh(42);
-        right:  vh(500);
+        right:  vw(500);
 
         .tab1 {
             content: url("~assets/img/sigin/tab.png");
             overflow: hidden;
 
             height: vh(41);
-            width: vh(41);
+            width: vw(41);
             background-size: vh(41);
             // height: 300px;
             // width: 300px;
@@ -66,7 +66,7 @@ export default{
         .tab2{
             display: inline-block;
             width: vh(139);
-            height: vh(35);
+            height: vw(35);
             overflow: hidden;
             line-height: vh(35);
 
@@ -86,8 +86,9 @@ export default{
         margin-left: auto;
         margin-right: auto;
 
-        width: vh(1000);
+        width: vw(1000);
         height: vh(550);
+        
         // border: 1px solid blue;
 
         box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.07);

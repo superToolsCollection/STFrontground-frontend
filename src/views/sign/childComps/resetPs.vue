@@ -1,5 +1,5 @@
 <template>
-    <div class="upContainer">
+    <div class="resetPsContainer">
         <div class="Title">
             <div class="txt">重置密码</div>
         </div>
@@ -139,7 +139,7 @@ export default{
 
             
             top: vh(58);
-            width: vh(380);
+            width: vw(380);
             height: vh(62);
 
             text-align: center;
@@ -178,7 +178,7 @@ export default{
             margin-right: auto;
 
             height: vh(180);
-            width: vh(380);
+            width: vw(380);
             // border: 1px solid red;
 
             text-align: center;
@@ -227,7 +227,7 @@ export default{
                     bottom: vh(10);
                     // border: 1px solid red;
                     box-sizing: border-box;
-                    width: vh(104);
+                    width: vw(104);
                     height: vh(36);
                     font-size: vh(12);
                     text-align: center;
@@ -258,7 +258,7 @@ export default{
                     right: 0;
                     bottom: 0;
                     // border: 1px solid red;
-                    width: vh(24);
+                    width: vw(24);
                     height: vh(24);
                     @include hoverCursor;
                 }
@@ -324,7 +324,7 @@ export default{
             right: 0;
             margin-left: auto;
             margin-right: auto;
-            width: vh(380);
+            width: vw(380);
             height: vh(56);
 
             line-height: vh(23);

@@ -70,7 +70,7 @@ export default{
 
 .container{
     height: vh(37);
-    width: vh(562);
+    width: vw(562);
     position: relative;
     display: inline-block;
  
@@ -108,7 +108,7 @@ export default{
             input{
 
                 box-sizing:border-box;
-                padding: vh(9) vh(16) vh(8) vh(18);
+                padding: vh(9) vw(16) vh(8) vw(18);
 
                 background-color: #F5F5F5;
                 // background-color:#B6B6B6 100%;
