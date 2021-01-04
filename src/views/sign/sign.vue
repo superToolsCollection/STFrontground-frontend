@@ -55,7 +55,6 @@ export default{
         .tab1 {
             content: url("~assets/img/sigin/tab.png");
             overflow: hidden;
-
             height: vh(41);
             width: vw(41);
             background-size: vh(41);
