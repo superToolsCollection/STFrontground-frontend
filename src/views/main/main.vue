@@ -13,15 +13,16 @@
                 </ul>
             </div>
         </div>
-        <div class="leftMenu" :class="{'leftPushMenu': showMenu}">
-            <menu-left></menu-left>
-        </div>
-        <div class="main">
+        
+        <div class="main" :style="{height: 260+height+'px'}">
+            <div class="leftMenu" :class="{'leftPushMenu': showMenu}">
+                <menu-left></menu-left>
+            </div>
             <img :src="menuImg" alt="" :class="{'leftPushMenuImg': showMenu}" @click="leftPushMenu">
             <div class="search">
                 <input type="text">
             </div>
-            <div class="content">
+            <div class="content" :style="{height: 50+height+'px'}">
                 <div class="contentTitle">
                     <ul>
                         <li>全部</li>
@@ -33,8 +34,9 @@
                     </ul>
                 </div>
                 <span>{{tab}}</span>
-                <div class="tools">
-                    <content-main></content-main>
+                <div class="tools" :style="{height: height+'px'}">
+                    <content-main :list="showContent"></content-main>
+                    <div class="showMore" @click="showMore">加载更多</div>
                 </div>
             </div>
         </div>    
@@ -46,6 +48,8 @@ import mnImg from 'assets/img/main/menu.svg'
 
 import menuLeft from './childComps/menu.vue'
 import contentMain from './childComps/content.vue'
+
+import {mainItem} from 'assets/js/data.js' 
 
 // import bgImg from 'assets/img/background.png'
 
@@ -61,14 +65,39 @@ export default{
            showMenu: false,
 
            tab: "生活日常",
-       }
+
+           list: mainItem,
+
+           showLength: 16,
+
+           height: 4*145,
+
+        }
     },
     computed:{
+        showContent:function () {
+            // console.log(this.list.length)
+
+            if(this.list.length>this.showLength){
+                return this.list.slice(0,this.showLength);
+            }else {
+                return this.list;
+            }    
+        },
     },
     methods:{
         leftPushMenu: function(){
             this.showMenu = !this.showMenu;
             console.log(this.showMenu);
+        },
+        showMore: function(){
+            console.log(this.list.length)
+            if(this.showLength+16<=this.list.length){
+                this.showLength = this.showLength + 16;
+            } else if( this.showLength != this.list.length){
+                this.showLength = this.list.length
+            }
+            this.height =  this.showLength/4*145
         }
     }
 }
@@ -151,30 +180,31 @@ export default{
         }
     }
 
-    .leftMenu{
-        z-index: 2;
-        position: absolute;
-        top: vh(77);
-        left: vw(-374);
-        width: vw(374);
-        height: vh(849);
-
-        transition: left 0.5s ease; 
-        box-sizing: border-box;
-        border: 1px solid red;
-    }
-     .leftPushMenu{
-        left: 0;
-    }
+   
     .main{
         position: relative;
         left: vw(0);
         box-sizing: border-box;
-        border: 1px solid red;
+        border: 1px solid yellow;
         width: 100%;
-        height: vh(849);
+        height: vh(810);
         // 触发BFC
-        overflow: hidden;
+        // overflow: hidden;
+        .leftMenu{
+            z-index: 2;
+            position: absolute;
+            top: 0;
+            left: vw(-374);
+            width: vw(374);
+            height: 100%;
+            transition: left 0.5s ease; 
+            box-sizing: border-box;
+            border: 1px solid red;
+        }
+        .leftPushMenu{
+            left: 0;
+        }
+
         img{
             position: absolute;
             left: vw(84);
@@ -214,9 +244,9 @@ export default{
             top: vh(180);
             margin-left: auto;
             margin-right: auto;
-            width:vw(1250);
-            height: vh(600);
-            // border: 1px solid red;
+            width:vw(1235);
+            height: vh(630);
+            border: 1px solid blue;
             .contentTitle{
                 position: absolute;
                 right: vw(0);
@@ -266,11 +296,36 @@ export default{
                 top: vh(50);
                 margin-left: auto;
                 margin-right: auto;
-                // border: 1px solid red;
+                border: 1px solid red;
                 box-sizing: border-box;
                 width:vw(1250);
-                height: vh(600);
-                overflow: hidden;
+                height: vh(580);
+                // overflow: hidden;
+                .showMore{
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    margin-left: auto;
+                    margin-right: auto;
+                    bottom: 0;
+                    width: vw(80);
+                    height: vh(30);
+                    // border: 1px solid red;
+                    // color: red;
+                    color: #ECF0F1;
+                    background-color: #E74C3C;
+
+                    font-size: vh(15);
+                    line-height: vh(30);
+                    text-align: center;
+                    // vertical-align: center;
+                    border-radius: 3px;
+                    &:hover{
+                        background-color: #C0392B;
+                    }
+                    @include hoverCursor;
+
+                }
             }
         }
     }
