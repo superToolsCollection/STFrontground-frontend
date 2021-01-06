@@ -62,12 +62,12 @@
 
 // superTool项目添加的
 @function vh($value){
-  @return $value+px;
+  @return $value*1px;
   // @return ($value*100/1444)+vw;
   // @return ($value*100/1024)+vh;
 }
 @function vw($value){
-  @return $value+px;
+  @return $value*1px;
   // @return ($value*100/1444)+vw;
 }
 
@@ -127,5 +127,24 @@
    visibility: hidden;/*兼容旧浏览器 */
   }
   *zoom:1;/*兼容IE6~7浏览器 */
+}
+
+// 改变高度
+@mixin changeHeight($name:'&',$value:180){
+  $b : vh($value);
+  #{$name}{
+    height: -webkit-calc(100% - #{$b});
+    height:    -moz-calc(100% - #{$b});
+    height: calc(100% - #{$b});
+  }
+}
+// 以 attribute = calc(percent - vh(value)) 的型式给某一属性赋值
+@mixin setAttribute($name:'&',$attribute,$percent:100%,$value:0){
+  $b : vh($value);
+  #{$name}{
+    #{$attribute}: -webkit-calc(#{$percent} - #{$b});
+    #{$attribute}:    -moz-calc(#{$percent} - #{$b});
+    #{$attribute}: calc(#{$percent} - #{$b});
+  }
 }
 
