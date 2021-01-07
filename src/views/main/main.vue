@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import menuRight from './childComps/menu.vue'
+import menuRight from './childComps/menu/menu.vue'
 import contentMain from './childComps/toolsPage/content.vue'
 
 import {mainData} from 'assets/js/data.js' 
@@ -108,7 +108,7 @@ export default{
         background-color: white;
         // background-color: rgba(#fff,#fff,#fff);
         opacity: 1;
-        z-index: 3;
+        z-index: 4;
         border-bottom: 1px solid #f0f0f4;
         .logo{
             float: left;
@@ -232,8 +232,8 @@ export default{
             @include setAttribute('&',height,100%,77);
             // height: 100%;
             transition: right 0.5s ease; 
-            box-sizing: border-box;
-            border: 1px solid red;
+            // box-sizing: border-box;
+            // border: 1px solid red;
         }
         .rightPushMenu{
             right: 0;
