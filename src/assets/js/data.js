@@ -713,7 +713,7 @@ export let mainData = [
         }
         ]
     },{
-        title: '精品专区',
+        title: '视频专区',
         tag: 5,
         data:  [{
             img:'assets/img/item/1.svg',

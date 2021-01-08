@@ -3,7 +3,12 @@
         <div class="content">
             <div class="img"><img alt="" :src= "getImg(data.img)"></div>
             <div class="txt">
-                <div class="title">{{data.title}}</div>
+                <!-- <div class="title">{{data.title}}</div> -->
+                <div class="title">
+                    <span  v-for="(item,key) in data.title1" :key="key">{{item}}</span>
+                    <span class="red" v-for="(item,key) in data.title2" :key="key+data.title1.length">{{item}}</span>
+                    <span  v-for="(item,key) in data.title3" :key="key+data.title1.length+data.title2.length">{{item}}</span>
+                    </div>               
                 <div class="description">
                     <div class="text">
                         {{data.description}}
@@ -23,6 +28,9 @@ export default{
                 return {
                         img: "assets/img/main/loadFail.svg",
                         title:'什么都没有',
+                        title1:'',
+                        title2:'',
+                        title3:'',
                         description:'真的什么都没有，或者传递参数出错,真的什么都没有，或者传递参数出错,真的什么都没有，或者传递参数出错',
                         url:''
                     }       
@@ -33,6 +41,16 @@ export default{
        return {
            
        }
+    },
+    created(){
+        var str = this.data.title.split("|")
+        this.data.title1=str[0]
+        if(str.length>1){
+            this.data.title2=str[1]
+        }
+        if(str.length>2){
+            this.data.title3=str[2]
+        }       
     },
     computed:{
     },
@@ -67,7 +85,8 @@ export default{
     box-sizing: border-box;
     border-radius: 2px;
     // margin-right: vw(25);
-    margin-bottom: vh(10);
+    // 这里好像只能写成10px不能写成vh(10)的型式，因为在menu.vue中mounted函数用到了这个数值
+    margin-bottom: 10px;
 
     @include hoverCursor;
 
@@ -112,6 +131,9 @@ export default{
                 font-size: vh(16);
                 margin-top: vh(6);
                 margin-bottom: vh(9);
+                .red{
+                    color: red;
+                }
             }
             .description{
                 // width: 100%;

@@ -1,7 +1,8 @@
 <template>
     <div class="containerContent">
         <div class="content">
-            <item v-for="(it, index) in content.data" :data=it :key="index"></item>
+            <div class="titleList">{{content.title}}</div>
+            <item v-for="(it, index) in content.data" :data=it :key="index" ></item>
         </div>       
     </div>
 </template>
@@ -15,7 +16,7 @@ export default{
             default: function() {
                 return {
                      title: '精品专区',
-                     tag: 1,
+                     tag: 0,
                      data:  [{img: "assets/img/main/loadFail.svg",
                         title:'什么都没有',
                         description:'真的什么都没有，或者传递参数出错',
@@ -89,6 +90,21 @@ export default{
         // border: 1px solid blue;
         box-sizing: border-box;
         // margin-bottom: vh(25);
+        .titleList{
+           position: relative;       
+           // left: 30%;
+           background-color: #f0f0f4;
+           opacity: 1;
+           // border: 1px solid red;
+           box-sizing: border-box;
+           border-radius: 5px 5px 0 0;
+           height: vh(25);
+           width: vw(240);
+           text-align: center;
+           font-size: vh(15);
+           line-height: vh(25);
+           overflow: hidden;
+        }
     }
 }
 </style>
