@@ -182,7 +182,7 @@ export default{
                 &::after{
                     float: right;
                     content:'...';
-                    width: vh(24);
+                    width: vh(21);
                     height: vh(20);
                     position: relative;
 

@@ -75,7 +75,7 @@ export default{
                 this.searchTitle.title = '取消';
             }
             this.showSearchMenu = !this.showSearchMenu;
-            console.log(this.showSearchMenu);
+            // console.log(this.showSearchMenu);
         },
         
         

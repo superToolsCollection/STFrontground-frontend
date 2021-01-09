@@ -62,10 +62,15 @@
         this.scroll && this.scroll.finishPullUp()
       },
       refresh() {
-        this.scroll && this.scroll.refresh()
+        // this.scroll && this.scroll.refresh()
         // console.log('refresh')
-        // var context = this
-        // setTimeout(function(){console.log(context.getMaxScrollY())},100)
+        var context = this
+        setTimeout(function(){
+          // console.log('refresh')
+          context.scroll && context.scroll.refresh()
+          // console.log(context.getMaxScrollY())
+        },100)
+
       },
       getScrollY() {
         return  this.scroll ? this.scroll.y : 0

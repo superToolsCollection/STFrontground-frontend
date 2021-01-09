@@ -55,11 +55,6 @@ export default{
         this.listHeight[this.listHeight.length-1]-=10;
         
     },
-    //在重新加载dom后刷新scroll，重新计算scroll子组件高度。refresh在watch中调用不好使，只有在这好用
-    updated(){
-        setTimeout(this.$refs.scroll.refresh(),60);
-        console.log('updated')
-    },
     components:{
         contentMenu,
         Scroll
@@ -72,9 +67,6 @@ export default{
            listHeight:[],
            //表示现在滚动到哪个data所在的区域
            inArea:0,
-
-
-           
 
            //在使用scrollTo跳转过程中锁住scroll事件的响应函数。
            lock: false,
@@ -146,7 +138,7 @@ export default{
 
         //输入框输入值发生改变
         searchInput(){
-            this.matchSearch(this.searchInfor)          
+            this.matchSearch(this.searchInfor)
         },
 
         //功能性函数
@@ -172,7 +164,7 @@ export default{
                 }
             }
             this.searchResult.data = dataGet;
-
+            this.$refs.scroll.refresh()
         },
     }
 }
