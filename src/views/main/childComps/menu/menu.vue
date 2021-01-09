@@ -1,27 +1,28 @@
 <template>
     <div class="containerMenu">
        <div class="input">
-           <input type="text" placeholder="搜索">
+           <input type="text" placeholder="搜索" v-model="searchInfor" @input="searchInput">
        </div>
        <div class="side">
             <ul>
-               <li v-for="(item,key) in list" :key="key"  @click="skipTo(key)" :class="{'hightlight':inArea===key}">{{item.title}}</li>
+               <li v-for="(item,key) in list" :key="key"  @click="skipTo(key)" :class="{'hightlight':(inArea===key)&&(searchState===0)}">{{item.title}}</li>
             </ul>
        </div>
        
-       <div class="title">{{list[inArea].title}}</div>
+       <div class="title">{{listTitle}}</div>
        <!-- 这里不要再将scroll包裹在div内 -->
-       <scroll class="show" ref="scroll" @scroll="contentscroll">
-           <div v-show="searchInfor.length===0">
-               <content-menu v-for="(item,key) in list" :content="item" :key="key" ref="list"></content-menu>
+       <scroll class="show" ref="scroll" @scroll="contentscroll" >
+           <div v-if="searchState===0">
+               <content-menu  v-for="(item,key) in list" :content="item" :key="key" ref="list"></content-menu>
            </div>
-            <div v-show="(searchInfor.length!=0)&&(searchResult.data.length!=0)">
-                <content-menu :content="searchResult"></content-menu>
-            </div>
-            <div v-show="(searchInfor.length!=0)&&(searchResult.data.length===0)" class="noSearchInfor">
+            <div v-else-if="searchState===1" class="noSearchInfor">
                 没有搜索到任何信息
             </div>
-        </scroll> 
+             <!-- 显示搜索结果 -->
+            <div v-else>
+                <content-menu :content="searchResult"></content-menu>
+            </div>   
+        </scroll >
             
     </div>
 </template>
@@ -35,9 +36,9 @@ import {mainData} from 'assets/js/data.js'
 import ContentMenu from './contentMenu.vue'
 
 export default{
-    created(){       
-        this.matchSearch(this.searchInfor)
-    },
+    // created(){       
+    //     this.matchSearch(this.searchInfor)
+    // },
     mounted(){
         // // 获取组件的高度
         // console.log(this.$refs["list"][0].$el.offsetHeight)
@@ -54,6 +55,11 @@ export default{
         this.listHeight[this.listHeight.length-1]-=10;
         
     },
+    //在重新加载dom后刷新scroll，重新计算scroll子组件高度。refresh在watch中调用不好使，只有在这好用
+    updated(){
+        setTimeout(this.$refs.scroll.refresh(),60);
+        console.log('updated')
+    },
     components:{
         contentMenu,
         Scroll
@@ -67,54 +73,90 @@ export default{
            //表示现在滚动到哪个data所在的区域
            inArea:0,
 
+
+           
+
            //在使用scrollTo跳转过程中锁住scroll事件的响应函数。
            lock: false,
 
-           searchInfor:'1',
+           searchInfor:'',
            searchResult: {
                      title: '搜索结果',
                      tag: 0,
                      data:  [{img: "assets/img/main/loadFail.svg",
-                        title:'什么|都没|有呀',
+                        title:'什么|都没|有呀',                       
+                        title1:'',
+                        title2:'',
+                        title3:'',
                         description:'真的什么都没有，或者传递参数出错',
                         url:''
                      }]
                 },
+
         }
     },
     computed:{
+        //搜索状态，0不进行搜索，1进行搜索但没搜索到任何值，2搜索到值
+        searchState(){
+            if(this.searchInfor.length===0){
+                return 0;
+            }else if(this.searchResult.data.length===0){
+                return 1;
+            }else{
+                return 2;
+            }
+        },
+        listTitle(){
+            if(this.searchState===0){
+                return this.list[this.inArea].title;
+            }else {
+                return "搜索结果"
+            }
+
+        }
     },
     methods:{
         contentscroll(position){
-            if(!this.lock){
-                //判断此时滚动位置在哪个data对应的区域
-                for(var i = 0; i<this.listHeight.length-1; i++){
-                    if(((-position.y)>=this.listHeight[i])&&((-position.y)<this.listHeight[i+1])){
-                        this.inArea = i;
-                        // console.log(i);
-                        break;
+            if(this.searchState===0){
+                if(!this.lock){
+                    //判断此时滚动位置在哪个data对应的区域
+                    for(var i = 0; i<this.listHeight.length-1; i++){
+                        if(((-position.y)>=this.listHeight[i])&&((-position.y)<this.listHeight[i+1])){
+                            this.inArea = i;
+                            // console.log(i);
+                            break;
+                        }
                     }
                 }
             }
         },
         skipTo(index){
-            this.inArea = index;
-            this.lock = true;
-            this.$refs.scroll.scrollTo(0,-this.listHeight[index]);
-            //一定要设置setTimeout, 虽然.scrollTo函数已经触发，但在执行完skipTo函数后还没有跳转到对应位置，因此要延时打开锁。
-            var context = this;
-            setTimeout(function openLock() {
-                context.lock = false;
-            },500)
+            if(this.searchState===0){
+                this.inArea = index;
+                this.lock = true;
+                this.$refs.scroll.scrollTo(0,-this.listHeight[index]);
+                //一定要设置setTimeout, 虽然.scrollTo函数已经触发，但在执行完skipTo函数后还没有跳转到对应位置，因此要延时打开锁。
+                var context = this;
+                setTimeout(function openLock() {
+                    context.lock = false;
+                },500)
+            }
+            
+        },
+
+        //输入框输入值发生改变
+        searchInput(){
+            this.matchSearch(this.searchInfor)          
         },
 
         //功能性函数
         matchSearch(str){
             var t = -1;
             var item;
+            var dataGet = [];
             
             console.log('here1')
-            this.searchResult.data = [];
+            
             for(var i = 0;i<this.list.length;i++){
                 for(var j=0;j<this.list[i].data.length;j++){
                     item = this.list[i].data[j];
@@ -125,11 +167,12 @@ export default{
                         var data = JSON.parse(JSON.stringify(item));
                         // console.log(data)
                         data.title = data.title.slice(0,t)+'|'+str+'|'+data.title.slice(t+str.length)
-                        this.searchResult.data.push(data)
+                        dataGet.push(data)
                     }
                 }
             }
-            console.log(this.searchResult)
+            this.searchResult.data = dataGet;
+
         },
     }
 }

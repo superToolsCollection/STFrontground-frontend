@@ -63,7 +63,9 @@
       },
       refresh() {
         this.scroll && this.scroll.refresh()
-
+        // console.log('refresh')
+        // var context = this
+        // setTimeout(function(){console.log(context.getMaxScrollY())},100)
       },
       getScrollY() {
         return  this.scroll ? this.scroll.y : 0

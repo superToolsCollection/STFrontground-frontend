@@ -45,12 +45,22 @@ export default{
     created(){
         var str = this.data.title.split("|")
         this.data.title1=str[0]
-        if(str.length>1){
-            this.data.title2=str[1]
-        }
-        if(str.length>2){
-            this.data.title3=str[2]
-        }       
+        this.data.title2=str[1]
+        this.data.title3=str[2]
+
+        // if(str.length>1){
+        //     this.data.title2=str[1]
+        // }
+        // if(str.length>2){
+        //     this.data.title3=str[2]
+        // }       
+    },
+    //在数据被修改，虚拟DOM重新渲染之前调用
+    beforeUpdate(){
+        var str = this.data.title.split("|")
+        this.data.title1=str[0]
+        this.data.title2=str[1]
+        this.data.title3=str[2]
     },
     computed:{
     },
