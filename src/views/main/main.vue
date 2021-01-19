@@ -3,7 +3,7 @@
         <div class="head">
             <div class="logo"><img src="~assets/img/main/logo.svg" alt=""><span>superTools</span></div>
             <div class="title">
-                
+               
                 <ul>
                     <li>首页</li>
                     <li>工具主页</li>
@@ -19,10 +19,12 @@
             <div class="rightMenu" :class="{'rightPushMenu': showSearchMenu}">
                 <menu-right></menu-right>
             </div>
-            <div class="content">
+            <div class="content" >
                 <div class="tools" >
                     <div class="area" v-for="(it, index) in list"  :key="index">
-                         <content-main :content=it></content-main>
+                        <!-- class为setShow的元素存在的意义纯粹是为了让content-main出现在我想看到的地方 -->
+                        <div class="setShow" :id= "'area'+index"></div>
+                        <content-main :content=it @packUp="packUp('area'+index)" ></content-main>
                     </div>                  
                 </div>
             </div>
@@ -56,6 +58,8 @@ export default{
 
            tab: "生活日常",
 
+           whereSit:{},
+
            list: mainData,
 
            
@@ -77,6 +81,20 @@ export default{
             this.showSearchMenu = !this.showSearchMenu;
             // console.log(this.showSearchMenu);
         },
+        packUp: function(param){
+            console.log("收起")
+            console.log(param)
+            // this.$refs[param].scrollIntoView();
+            // console.log(this.$refs[param])
+            // console.log(this.$refs)
+            let elem = document.getElementById(param);
+            // let height = elem.offsetHeight;
+            // console.log(height)
+            // elem.scrollTo({top:height})
+            // elem.scrollIntoView(true);
+            elem.scrollIntoView({behavior: "smooth", block: "start"});
+
+        }
         
         
     }
@@ -211,6 +229,8 @@ export default{
         // border: 1px solid yellow;
         width: 100%;
         margin-top: vh(77);
+        margin-bottom: vh(80);
+
         // margin-bottom: vh(80);
         // min-height: vh(840);
         // height: 100%;
@@ -265,6 +285,11 @@ export default{
                 // @include changeHeight(&,50);
                 // overflow: hidden;
                 .area{
+                    position: relative;
+                    .setShow{
+                        position: absolute;
+                        top: vh(-77);
+                    }
                     margin-bottom: vh(50);
                     border: 1px solid #e9e7ef;
                     box-shadow: 3px 3px 3px #e9e7ef;

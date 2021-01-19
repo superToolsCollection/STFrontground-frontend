@@ -65,6 +65,7 @@ export default{
                 this.btInfo = '展开'
                 this.btStatu = 3
                 this.showLength = 16
+                this.$emit('packUp')
             }else if(this.btStatu==3){
                 this.btStatu =2
                 this.btInfo = '收起'
@@ -79,10 +80,12 @@ export default{
 @import "scss-normalize";
 .containerContent{
     position: relative;
-    // border: 1px solid green;
+    // border: 1px solid red;
     box-sizing: border-box;
     padding: vw(26);
     margin-left: vw(7);
+    transition: height .25s;
+
   
     .title{
         display: inline-block;
