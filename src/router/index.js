@@ -9,6 +9,9 @@ import resetPs from 'views/sign/childComps/resetPs.vue'
 import accountDetail from 'views/accountDetail/accountDetail.vue'
 
 import main from 'views/main/main.vue'
+import tools from 'views/main/childComps/toolsPage/tools.vue'
+import home from 'views/main/childComps/home/home.vue'
+// import colShow from 'views/main/childComps/collection/colShow.vue'
 
 Vue.use(VueRouter)
 
@@ -21,11 +24,18 @@ const routes = [
 
   {
     path: '/',
-    redirect: '/main'
+    redirect: '/main/tools'
   },
   {
     path:'/main',
-    component: main
+    component: main,
+    children:[{
+      path: 'tools',
+      component: tools
+    },{
+      path: 'home',
+      component: home
+    }]
   },
   {
     path: '/account',

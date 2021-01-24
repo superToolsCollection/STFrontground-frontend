@@ -5,8 +5,8 @@
             <div class="title">
                
                 <ul>
-                    <li @click="toHome">首页</li>
-                    <li @click="toTools">工具主页</li>
+                    <li>首页</li>
+                    <li>工具主页</li>
                     <li>关于我们</li>
                     <li>用户</li>
                 </ul>
@@ -21,16 +21,25 @@
             </div>
 
             <div class="content" >
-                <router-view></router-view>
+                <div class="tools" >
+                    <div class="area" v-for="(it, index) in list"  :key="index">
+                        <!-- class为setShow的元素存在的意义纯粹是为了让content-main出现在我想看到的地方 -->
+                        <div class="setShow" :id= "'area'+index"></div>
+                        <content-main :content=it @packUp="packUp('area'+index)" ></content-main>
+                    </div>                  
+                </div>
             </div>
 
-
+            
         </div>    
     </div>
 </template>
 
 <script>
 import menuRight from './childComps/menu/menu.vue'
+import contentMain from './childComps/toolsPage/content.vue'
+
+import {mainData} from 'assets/js/data.js' 
 
 import searchImg from 'assets/img/main/search.svg'
 import cancleImg from 'assets/img/main/cancle.svg'
@@ -40,6 +49,7 @@ import cancleImg from 'assets/img/main/cancle.svg'
 export default{
     components:{
         menuRight,
+        contentMain
     },
     data(){
        return {
@@ -53,6 +63,8 @@ export default{
 
            whereSit:{},
 
+           list: mainData,
+
            
 
         }
@@ -61,12 +73,6 @@ export default{
         
     },
     methods:{
-        toTools: function(){
-            this.$router.push('/main/tools')
-        },
-        toHome: function(){
-            this.$router.push('/main/home')
-        },
         leftPushMenu: function(){
             if(this.showSearchMenu){
                 this.searchTitle.img = searchImg;
@@ -77,8 +83,23 @@ export default{
             }
             this.showSearchMenu = !this.showSearchMenu;
             // console.log(this.showSearchMenu);
+        },
+        packUp: function(param){
+            console.log("收起")
+            console.log(param)
+            // this.$refs[param].scrollIntoView();
+            // console.log(this.$refs[param])
+            // console.log(this.$refs)
+            let elem = document.getElementById(param);
+            // let height = elem.offsetHeight;
+            // console.log(height)
+            // elem.scrollTo({top:height})
+            // elem.scrollIntoView(true);
+            elem.scrollIntoView({behavior: "smooth", block: "start"});
+
         }
-            
+        
+        
     }
 }
 </script>
@@ -251,7 +272,38 @@ export default{
             top: vh(60);
             // 内部进行：height: 100% - vh(180);
             // @include changeHeight('&',208);
-            // border: 1px solid blue
+            // border: 1px solid blue;
+            
+
+            .tools{
+                position: relative;
+                
+                // left: 0;
+                // right: 0;
+                // top: 0;
+                // margin-left: auto;
+                // margin-right: auto;
+                // margin-bottom: vh(50);
+                // border: 1px solid red;
+                box-sizing: border-box;
+                width:vw(1250);
+                // height: vh(580);
+                // @include changeHeight(&,50);
+                // overflow: hidden;
+                .area{
+                    position: relative;
+                    .setShow{
+                        position: absolute;
+                        top: vh(-77);
+                    }
+                    margin-bottom: vh(50);
+                    border: 1px solid #e9e7ef;
+                    box-shadow: 3px 3px 3px #e9e7ef;
+                    border-radius: vh(5);
+                    box-sizing: border-box;
+                }
+               
+            }
         }
     }
 }
