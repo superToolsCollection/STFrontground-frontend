@@ -31,7 +31,7 @@ export default{
 
     .search{
         width: vw(900);
-        height: vh(40);
+        height: vh(50);
         box-sizing: border-box;
         // margin-top: vh(9);
         margin: vh(30) auto;
@@ -47,10 +47,12 @@ export default{
     }
     .colShow{
         // width: calc(100% - 100px);
-        height: vh(500);
+        height: vh(560);
         border: 1px solid yellow;
-        margin: vh(30) auto;
-        width:vw(1135);
+        margin-top: vh(30);
+        margin-left: auto;
+        margin-right: auto;
+        // width:vw(1135);
 
 
     }
