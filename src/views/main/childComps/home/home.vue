@@ -52,6 +52,7 @@ export default{
         margin-top: vh(30);
         margin-left: auto;
         margin-right: auto;
+        overflow: hidden;
         // width:vw(1135);
 
 
