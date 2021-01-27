@@ -1,7 +1,8 @@
 <template>
     <div class="containerContent">
         <div class="content">
-            <item v-for="(it, index) in showContent"  :key="index"></item>
+            <!-- <item v-for="(it, index) in showContent"  :key="index"></item> -->
+            <item v-for="(it, index) in content.data" :content="it" :key="index"></item>
         </div>        
     </div>
 </template>
@@ -56,7 +57,8 @@ export default{
     // border: 1px solid red;
     box-sizing: border-box;
     padding: vw(26);
-    margin-left: vw(7);
+    // margin-left: vw(7);
+    width:vw(882);
     transition: height .25s; 
 
     .content{
@@ -66,7 +68,7 @@ export default{
         // border: 1px solid blue;
         box-sizing: border-box;
         //没有设定width属性，设定负margin-left/right会将元素拖向对应的方向，并增加宽度，此时的margin的作用就像padding一样: https://www.html.cn/web/css/17515.html
-        margin-right: vw(-125);
+        margin-right: vw(-14);
         // margin-bottom: vh(25);
     }
 

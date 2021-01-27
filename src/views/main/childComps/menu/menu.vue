@@ -166,6 +166,12 @@ export default{
             this.searchResult.data = dataGet;
             this.$refs.scroll.refresh()
         },
+    },
+    destroyed(){
+        console.log('销毁menu页面')
+    },
+    beforeCreate(){
+        console.log('创建menu页面')
     }
 }
 </script>

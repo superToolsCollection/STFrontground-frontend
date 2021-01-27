@@ -14,7 +14,7 @@
     </div>
 </template>
 <script>
-
+import {mainContent} from 'assets/js/data.js' 
 export default{
     props:{
         content:{
@@ -24,6 +24,7 @@ export default{
                         img: "assets/img/main/loadFail.svg",
                         title:'真的什么都没有',
                         url:'',
+                        key:'',
                         
                         view: 10000,                        
                         isSave: true,
@@ -37,6 +38,7 @@ export default{
     data(){
        return {
            data: this.content,
+           contentData: mainContent,
        }
     },
     computed:{
@@ -71,7 +73,17 @@ export default{
     },
     methods:{
         saveIt(){
-            this.data.isSave = !this.data.isSave;
+            // 这里对isSave的改变会直接作用在assets/js/data.js中存储的数据，在其他组件中import该数据时也会产生同样的改变，这是我们想要的效果。
+            // this.data.isSave = !this.data.isSave;
+            // this.data.title = '改变';
+            // this.contentData[0].data[0].isSave = false;
+            // console.log(this.contentData)
+
+            // args是一个对象{key,attr,value},代表将标志为key的元素的attr属性设置为value
+            
+            var key = this.data.key;
+            var value = !this.data.isSave;
+            this.$store.commit('setItemValue',{'key':key,'attr':'isSave','value':value})
         },
         favorIt(){
             this.data.isFavor = !this.data.isFavor;
@@ -102,6 +114,12 @@ export default{
                 return require('assets/img/main/loadFail.svg')
             }
         }
+    },
+    destroyed(){
+        console.log('销毁colItem组件')
+    },
+    beforeCreate(){
+        console.log('创建colItem组件')
     }
 }
 </script>
@@ -112,12 +130,13 @@ export default{
     position: relative;
     // background-color: blue;
     box-sizing: border-box;
-    width: vw(270);
-    height: vh(125);
+    width: vw(200);
+    height: vh(100);
     border: 1px solid gray;
     box-sizing: border-box;
-    margin-right: vw(25);
+    margin-right: vw(10);
     margin-bottom: vh(20);
+    padding: vh(10);
     border-radius: 5px;
 
 
@@ -130,20 +149,16 @@ export default{
         border-radius: vh(5);
     }
     .content{
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
+        position: relative;
         margin: auto;
-        width: vw(240);
-        height: vh(100);
+        width: vw(178);
+        height: vh(78);
         // border: 1px solid red;
         // background-color: yellow;
         .img{
             float: left;
-            width: vw(60);
-            height: vw(60);
+            width: vw(50);
+            height: vw(50);
             // border: 1px solid red;
             box-sizing: border-box;
             img{
@@ -154,10 +169,10 @@ export default{
         .title{
             position: relative;
             float: left;
-            top: vh(25);
+            top: vh(15);
             left: vw(15);
             text-align: left;
-            font-size: vh(18);
+            font-size: vh(20);
             // margin-top: vh(6);
             // margin-bottom: vh(9);
         }
@@ -166,15 +181,15 @@ export default{
             top: vh(0);
             right: vw(0);
             img{
-                width: vh(24);
-                height: vh(24);
+                width: vh(18);
+                height: vh(18);
             }
         }
         .infor{
             position: absolute;
             bottom: vh(0);
             left: vw(15);
-            $size: vh(24);
+            $size: vh(18);
             
             .view,.favor{
                 // float: left;
@@ -186,11 +201,12 @@ export default{
                 }
                 span{
                     vertical-align: middle;
+                    font-size: vh(12)
                 }
             }
             .favor{
                 position: relative;
-                left: vw(20);
+                left: vw(24);
             }
         } 
     }

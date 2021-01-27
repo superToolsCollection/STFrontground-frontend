@@ -2,8 +2,8 @@
     <div class="colShowContainer" >
         <div class="col" @mousewheel="handleWhell">
             <div class="colContentToShow"  v-for="(it, index) in list"  :key=" 'content' + index">
-                <!-- <col-content  :content = it ></col-content> -->
-                <col-content></col-content>
+                <col-content  :content = it ></col-content>
+                <!-- <col-content></col-content> -->
             </div>
             
         </div>
@@ -16,11 +16,17 @@
 
 // import contentMain from './content.vue'
 
-import {mainData} from 'assets/js/data.js' 
+import {mainContent} from 'assets/js/data.js' 
 import ColContent from './colContent.vue'
 
 
 export default{
+    created: function(){
+        console.log('creatColShow')
+        var t = {}
+        t.value = mainContent
+        this.$store.commit('setContentItem',t)
+    },
     components:{
         'colContent': ColContent
     },
@@ -29,14 +35,37 @@ export default{
     },
     data(){
        return {
-           list: mainData,
+        //    list: mainContent,
            colWidth:0,
            indexCol: 0,
 
         }
     },
     computed:{
-        
+        list:function(){
+
+            // {
+            //          title: '精品专区',
+            //          tag: 1,
+            //          data:  [{img: "assets/img/main/loadFail.svg",
+            //             title:'什么都没有',
+            //             description:'真的什么都没有，或者传递参数出错',
+            //             url:''
+            //          }]
+            //     }
+            // console.log('hereColShow.vue')
+            var getData = this.$store.getters.getCollections;
+            var data = []
+            for(var i=0; i < getData.length/16;i++){
+                var t = getData.slice(i*16, Math.min((i+1)*16,getData.length))
+                data.push({
+                    title: '收藏',
+                    tag: 0,
+                    data: t
+                })
+            } 
+            return data;
+        }
     },
     methods:{
        handleWhell: function(e){
@@ -70,9 +99,9 @@ export default{
     margin-left: auto;
     margin-right: auto;
     // margin-bottom: vh(50);
-    border: 1px solid red;
+    // border: 1px solid red;
     box-sizing: border-box;
-    width:vw(1235);
+    width:vw(1000);
     height: vh(560);
     // overflow: hidden;
 
@@ -82,22 +111,23 @@ export default{
     // @include changeHeight(&,50);
    
     .col{
-        height: vh(520);
-        width: vw(1235);
+        height: vh(500);
+        width: vw(882);
+        margin-left: auto;
+        margin-right: auto;
         // width: min-content;
         // margin-right: vw(-1300);
         // margin-left: vw(-1135);
-         overflow: hidden;
-        overflow: visible;
+        overflow: hidden;
         white-space: nowrap;
+
+        // border: 1px solid green;
         
         box-sizing: border-box;
-        border:  1px solid pink; 
         .colContentToShow{
             // float: left;
             display: inline-block;
-            width:vw(1235);
-            border:  1px solid blue;            
+            // border:  1px solid blue;            
             box-sizing: border-box;
             height: vh(500);
             // transition: right 0.5s ease; 

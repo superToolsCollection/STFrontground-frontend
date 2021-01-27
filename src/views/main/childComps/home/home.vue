@@ -19,7 +19,13 @@ export default{
        return {}
     },
     computed:{},
-    methods:{}
+    methods:{},
+    destroyed(){
+        console.log('销毁home页面')
+    },
+    beforeCreate(){
+        console.log('创建home页面')
+    }
 }
 </script>
 
@@ -27,16 +33,16 @@ export default{
 @import "scss-normalize";
 
 .homeContainer{
-    border: 1px solid red;
+    // border: 1px solid red;
 
     .search{
-        width: vw(900);
-        height: vh(50);
+        width: vw(700);
+        height: vh(45);
         box-sizing: border-box;
         // margin-top: vh(9);
         margin: vh(30) auto;
         text-align: center;
-        border: 1px solid green;
+        // border: 1px solid green;
         box-sizing: border-box;
         input{
             box-sizing: border-box;
@@ -48,7 +54,8 @@ export default{
     .colShow{
         // width: calc(100% - 100px);
         height: vh(560);
-        border: 1px solid yellow;
+        width: vw(1000);
+        // border: 1px solid yellow;
         margin-top: vh(30);
         margin-left: auto;
         margin-right: auto;
