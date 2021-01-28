@@ -1,14 +1,14 @@
 <template>
     <div class="colShowContainer" >
         <div class="col" @mousewheel="handleWhell">
-            <div class="colContentToShow"  v-for="(it, index) in list"  :key=" 'content' + index">
-                <col-content  :content = it ></col-content>
-                <!-- <col-content></col-content> -->
-            </div>
-            
+            <col-content class="colContentToShow"  
+            v-for="(it, index) in list"  :key=" 'colContent' + index" :content = it
+            @destroycolContent="destroycolContent" ></col-content>            
         </div>
-        <div class="labelContainer">
-            <div class="label" v-for="(it, index) in list"  :key="'label' + index" :class="{'labelHightLight': indexCol===index}"></div>  
+        <div class="labelContainer" v-if="list.length>1">
+            <div class="label" v-for="(it, index) in list"  :key="'label' + index"
+             :class="{'labelHightLight': indexCol===index}"
+             @click="skipTo(index)"></div>  
         </div>                
     </div>
 </template>
@@ -16,22 +16,27 @@
 
 // import contentMain from './content.vue'
 
-import {mainContent} from 'assets/js/data.js' 
+// import {mainContent} from 'assets/js/data.js' 
 import ColContent from './colContent.vue'
+import {throttle} from 'assets/js/fun.js'
 
 
 export default{
-    created: function(){
-        console.log('creatColShow')
-        var t = {}
-        t.value = mainContent
-        this.$store.commit('setContentItem',t)
-    },
+    // created: function(){
+    //     console.log('creatColShow')
+    //     var t = {}
+    //     t.value = mainContent
+    //     this.$store.commit('setContentItem',t)
+    // },
     components:{
         'colContent': ColContent
     },
     mounted(){
-        this.colWidth = document.getElementsByClassName('colContentToShow')[0].offsetWidth;
+        if(document.getElementsByClassName('colContentToShow')[0]){
+            this.colWidth = document.getElementsByClassName('colContentToShow')[0].offsetWidth;
+        }
+        // console.log('contentItem',this.$store.state.a.contentItem)
+
     },
     data(){
        return {
@@ -44,20 +49,13 @@ export default{
     computed:{
         list:function(){
 
-            // {
-            //          title: '精品专区',
-            //          tag: 1,
-            //          data:  [{img: "assets/img/main/loadFail.svg",
-            //             title:'什么都没有',
-            //             description:'真的什么都没有，或者传递参数出错',
-            //             url:''
-            //          }]
-            //     }
-            // console.log('hereColShow.vue')
             var getData = this.$store.getters.getCollections;
             var data = []
+            // console.log(getData.length,getData.length/16)
             for(var i=0; i < getData.length/16;i++){
+                console.log('pushData')
                 var t = getData.slice(i*16, Math.min((i+1)*16,getData.length))
+                // console.log(t)
                 data.push({
                     title: '收藏',
                     tag: 0,
@@ -67,22 +65,39 @@ export default{
             return data;
         }
     },
+    watch:{
+        indexCol(newValue){
+            if((newValue>=0)&&(newValue<this.list.length)){
+                document.getElementsByClassName('colContentToShow')[0].style.marginLeft =  -this.colWidth*newValue + 'px';
+            }else{
+                console.log('src\\views\\main\\childComps\\home\\colShow.vue中的 indexCol ERRO','the value of indexCol is',newValue);
+            }
+        }
+    },
     methods:{
-       handleWhell: function(e){
-           if(e.deltaY>0){
-                // console.log("向上翻页",this.colWidth)
-                if( this.indexCol < this.list.length-1){
+       handleWhell(e){
+        //    匿名函数的this由定义所在的地方决定，具名函数的this由调用者决定
+           throttle(()=>{
+                // console.log(this);
+                if((e.deltaY>0)&&(this.indexCol < this.list.length-1)){
+                    //    console.log("向上翻页")
                     this.indexCol++;
-                    document.getElementsByClassName('colContentToShow')[0].style.marginLeft =  -this.colWidth*this.indexCol + 'px';
-                }
-           } else if(e.deltaY<0){
-               if( this.indexCol > 0){
+                } else if((e.deltaY<0)&&(this.indexCol>0)){
+                    //    console.log("向下翻页")
                     this.indexCol--;
-                    document.getElementsByClassName('colContentToShow')[0].style.marginLeft =  -this.colWidth*this.indexCol + 'px';
                 }
-            //    console.log("向下翻页")
-           }
-       }
+            })
+        }, 
+        skipTo(index){
+            this.indexCol = index;      
+        },
+       
+       //在取消收藏的过程中，如果刚好滑动到最后一个colContent的位置，并且该colContent中没有内容了即该组件销毁了，记得再一次调整滑动位置
+       destroycolContent(){
+           if((this.indexCol>=this.list.length)&&(this.indexCol!=0)){
+               this.indexCol--;
+            }
+        }
         
         
     }
@@ -152,6 +167,7 @@ export default{
             border-radius: 50%;
             background-color: lightgrey;
             transition: background-color 2s;
+            @include hoverCursor;
         }
         .labelHightLight{
             background-color: red;

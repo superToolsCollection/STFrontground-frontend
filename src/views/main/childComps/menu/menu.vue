@@ -28,12 +28,11 @@
 </template>
 
 <script>
-import contentMenu from './contentMenu'
+import contentMenu from './contentMenu.vue'
 import Scroll from 'components/scroll/Scroll.vue'
 
 
-import {mainData} from 'assets/js/data.js' 
-import ContentMenu from './contentMenu.vue'
+// import {mainData} from 'assets/js/data.js' 
 
 export default{
     // created(){       
@@ -53,6 +52,7 @@ export default{
         }
         //因为最后一个contentMenu的高度是不包括margin-bottom的
         this.listHeight[this.listHeight.length-1]-=10;
+
         
     },
     components:{
@@ -60,9 +60,9 @@ export default{
         Scroll
     },
     data(){
-        ContentMenu
        return {
-           list: mainData,
+        //    list: this.$store.contentItem,
+            list:this.$store.state.a.contentItem,
 
            listHeight:[],
            //表示现在滚动到哪个data所在的区域
@@ -165,6 +165,9 @@ export default{
             }
             this.searchResult.data = dataGet;
             this.$refs.scroll.refresh()
+            console.log('contentItem',this.$store.state.a.contentItem)
+
+            
         },
     },
     destroyed(){
@@ -261,7 +264,8 @@ export default{
         border-radius: 5px 5px 0 0;
         height: vh(25);
         left: vw(5);
-        width: vw(235);
+        width: vw(195);
+        // @include setAttribute('&',height,100%,60);
         text-align: center;
         font-size: vh(15);
         line-height: vh(25);

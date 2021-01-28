@@ -1,5 +1,5 @@
 <template>
-    <div class="containerItem" @click="viewIt">
+    <div class="menuItemContainer" @click="viewIt">
         <div class="content" :title="itemTitle">
             <div class="img"><img alt="" :src= "getImg(data.img)"></div>
             <div class="title">{{data.title}}</div>
@@ -118,8 +118,8 @@ export default{
 </script>
 <style scoped lang='scss'>
 @import "scss-normalize";
-.containerItem{
-    float: left;
+.menuItemContainer{
+
     position: relative;
     // background-color: blue;
     box-sizing: border-box;

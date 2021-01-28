@@ -36,7 +36,8 @@ const moduleA = {
       state.contentItem.forEach(elem1 => {
         elem1.data.forEach(elem2=>{
           if(elem2.isSave){
-            col.push(elem2)
+            col.push(elem2)            
+            // console.log('elem2',elem2)
           }
         })
       });

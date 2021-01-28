@@ -36,10 +36,17 @@ import menuRight from './childComps/menu/menu.vue'
 
 import searchImg from 'assets/img/main/search.svg'
 import cancleImg from 'assets/img/main/cancle.svg'
+import {mainContent} from 'assets/js/data.js' 
 
 // import bgImg from 'assets/img/background.png'
 
 export default{
+    created: function(){
+        console.log('creatMain.vue')
+        var t = {}
+        t.value = mainContent
+        this.$store.commit('setContentItem',t)
+    },
     components:{
         menuRight,
     },
@@ -231,7 +238,7 @@ export default{
 
             right: vw(-374);
             // right: 0;
-            width: vw(374);
+            width: vw(334);
             // height = calc(percent - vh(value)) 
             @include setAttribute('&',height,100%,77);
             // height: 100%;

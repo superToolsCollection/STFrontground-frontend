@@ -379,7 +379,7 @@ export let mainContent = [
             isSave: true,
             favor: 10000,
             isFavor: true,
-            key: 21,
+            key: 31,
         },{
             img:'assets/img/item/2.svg',
             title:'title2',
@@ -388,7 +388,7 @@ export let mainContent = [
             isSave: true,
             favor: 10000,
             isFavor: true,
-            key: 22,
+            key: 32,
         },{
             img:'assets/img/item/3.svg',
             title:'title3',
@@ -397,7 +397,7 @@ export let mainContent = [
             isSave: true,
             favor: 10000,
             isFavor: true,
-            key: 23,
+            key: 33,
         },{
             img:'assets/img/item/4.svg',
             title:'title4',
@@ -406,7 +406,7 @@ export let mainContent = [
             isSave: true,
             favor: 10000,
             isFavor: true,
-            key: 24,
+            key: 34,
         },{
             img:'assets/img/item/5.svg',
             title:'title5',
@@ -415,7 +415,7 @@ export let mainContent = [
             isSave: true,
             favor: 10000,
             isFavor: true,
-            key: 25,
+            key: 35,
         },{
             img:'assets/img/item/6.svg',
             title:'title6',
@@ -424,7 +424,7 @@ export let mainContent = [
             isSave: true,
             favor: 10000,
             isFavor: true,
-            key: 26,
+            key: 36,
         },{
             img:'assets/img/item/7.svg',
             title:'title7',
@@ -433,7 +433,7 @@ export let mainContent = [
             isSave: true,
             favor: 10000,
             isFavor: true,
-            key: 27,
+            key: 37,
         },{
             img:'assets/img/item/8.svg',
             title:'title8',
@@ -442,7 +442,7 @@ export let mainContent = [
             isSave: true,
             favor: 10000,
             isFavor: true,
-            key: 28,
+            key: 38,
         },{
             img:'assets/img/item/9.svg',
             title:'title9',
@@ -451,7 +451,7 @@ export let mainContent = [
             isSave: true,
             favor: 10000,
             isFavor: true,
-            key: 29,
+            key: 39,
         },{
             img:'assets/img/item/10.svg',
             title:'title10',
@@ -460,7 +460,7 @@ export let mainContent = [
             isSave: true,
             favor: 10000,
             isFavor: true,
-            key: 210,
+            key: 310,
         },{
             img:'assets/img/item/11.svg',
             title:'title11',
@@ -469,7 +469,7 @@ export let mainContent = [
             isSave: true,
             favor: 10000,
             isFavor: true,
-            key: 211,
+            key: 311,
         },{
             img:'assets/img/item/12.svg',
             title:'title12',
@@ -478,7 +478,7 @@ export let mainContent = [
             isSave: true,
             favor: 10000,
             isFavor: true,
-            key: 212,
+            key: 312,
         },{
             img:'assets/img/item/13.svg',
             title:'title13',
@@ -487,7 +487,7 @@ export let mainContent = [
             isSave: true,
             favor: 10000,
             isFavor: true,
-            key: 213,
+            key: 313,
         },{
             img:'assets/img/item/14.svg',
             title:'title14',
@@ -496,7 +496,7 @@ export let mainContent = [
             isSave: true,
             favor: 10000,
             isFavor: true,
-            key: 214,
+            key: 314,
         },{
             img:'assets/img/item/15.svg',
             title:'title15',
@@ -505,7 +505,7 @@ export let mainContent = [
             isSave: true,
             favor: 10000,
             isFavor: true,
-            key: 215,
+            key: 315,
         },{
             img:'assets/img/item/16.svg',
             title:'title16',
@@ -514,7 +514,7 @@ export let mainContent = [
             isSave: true,
             favor: 10000,
             isFavor: true,
-            key: 216,
+            key: 316,
         },{
             img:'assets/img/item/17.svg',
             title:'title17',
@@ -523,7 +523,7 @@ export let mainContent = [
             isSave: true,
             favor: 10000,
             isFavor: true,
-            key: 217,
+            key: 317,
         },{
             img:'assets/img/item/18.svg',
             title:'title18',
@@ -532,7 +532,7 @@ export let mainContent = [
             isSave: true,
             favor: 10000,
             isFavor: true,
-            key: 218,
+            key: 318,
         },{
             img:'assets/img/item/19.svg',
             title:'title19',
@@ -541,7 +541,7 @@ export let mainContent = [
             isSave: true,
             favor: 10000,
             isFavor: true,
-            key: 219,
+            key: 319,
         },{
             img:'assets/img/item/20.svg',
             title:'title20',
@@ -550,7 +550,7 @@ export let mainContent = [
             isSave: true,
             favor: 10000,
             isFavor: true,
-            key: 220,
+            key: 320,
         },]
     },{
         title: '编程专区',
@@ -563,7 +563,7 @@ export let mainContent = [
             isSave: true,
             favor: 10000,
             isFavor: true,
-            key: 21,
+            key: 41,
         },{
             img:'assets/img/item/2.svg',
             title:'title2',
@@ -572,7 +572,7 @@ export let mainContent = [
             isSave: true,
             favor: 10000,
             isFavor: true,
-            key: 22,
+            key: 42,
         },{
             img:'assets/img/item/3.svg',
             title:'title3',
@@ -581,7 +581,7 @@ export let mainContent = [
             isSave: true,
             favor: 10000,
             isFavor: true,
-            key: 23,
+            key: 43,
         },{
             img:'assets/img/item/4.svg',
             title:'title4',
@@ -590,7 +590,7 @@ export let mainContent = [
             isSave: true,
             favor: 10000,
             isFavor: true,
-            key: 24,
+            key: 44,
         },{
             img:'assets/img/item/5.svg',
             title:'title5',
@@ -599,7 +599,7 @@ export let mainContent = [
             isSave: true,
             favor: 10000,
             isFavor: true,
-            key: 25,
+            key: 45,
         },{
             img:'assets/img/item/6.svg',
             title:'title6',
@@ -608,7 +608,7 @@ export let mainContent = [
             isSave: true,
             favor: 10000,
             isFavor: true,
-            key: 26,
+            key: 46,
         },{
             img:'assets/img/item/7.svg',
             title:'title7',
@@ -617,7 +617,7 @@ export let mainContent = [
             isSave: true,
             favor: 10000,
             isFavor: true,
-            key: 27,
+            key: 47,
         },{
             img:'assets/img/item/8.svg',
             title:'title8',
@@ -626,7 +626,7 @@ export let mainContent = [
             isSave: true,
             favor: 10000,
             isFavor: true,
-            key: 28,
+            key: 48,
         },{
             img:'assets/img/item/9.svg',
             title:'title9',
@@ -635,7 +635,7 @@ export let mainContent = [
             isSave: true,
             favor: 10000,
             isFavor: true,
-            key: 29,
+            key: 49,
         },{
             img:'assets/img/item/10.svg',
             title:'title10',
@@ -644,7 +644,7 @@ export let mainContent = [
             isSave: true,
             favor: 10000,
             isFavor: true,
-            key: 210,
+            key: 410,
         },{
             img:'assets/img/item/11.svg',
             title:'title11',
@@ -653,7 +653,7 @@ export let mainContent = [
             isSave: true,
             favor: 10000,
             isFavor: true,
-            key: 211,
+            key: 411,
         },{
             img:'assets/img/item/12.svg',
             title:'title12',
@@ -662,7 +662,7 @@ export let mainContent = [
             isSave: true,
             favor: 10000,
             isFavor: true,
-            key: 212,
+            key: 412,
         },{
             img:'assets/img/item/13.svg',
             title:'title13',
@@ -671,7 +671,7 @@ export let mainContent = [
             isSave: true,
             favor: 10000,
             isFavor: true,
-            key: 213,
+            key: 413,
         },{
             img:'assets/img/item/14.svg',
             title:'title14',
@@ -680,7 +680,7 @@ export let mainContent = [
             isSave: true,
             favor: 10000,
             isFavor: true,
-            key: 214,
+            key: 414,
         },{
             img:'assets/img/item/15.svg',
             title:'title15',
@@ -689,7 +689,7 @@ export let mainContent = [
             isSave: true,
             favor: 10000,
             isFavor: true,
-            key: 215,
+            key: 415,
         },{
             img:'assets/img/item/16.svg',
             title:'title16',
@@ -698,7 +698,7 @@ export let mainContent = [
             isSave: true,
             favor: 10000,
             isFavor: true,
-            key: 216,
+            key: 416,
         },{
             img:'assets/img/item/17.svg',
             title:'title17',
@@ -707,7 +707,7 @@ export let mainContent = [
             isSave: true,
             favor: 10000,
             isFavor: true,
-            key: 217,
+            key: 417,
         },{
             img:'assets/img/item/18.svg',
             title:'title18',
@@ -716,7 +716,7 @@ export let mainContent = [
             isSave: true,
             favor: 10000,
             isFavor: true,
-            key: 218,
+            key: 418,
         },{
             img:'assets/img/item/19.svg',
             title:'title19',
@@ -725,7 +725,7 @@ export let mainContent = [
             isSave: true,
             favor: 10000,
             isFavor: true,
-            key: 219,
+            key: 419,
         },{
             img:'assets/img/item/20.svg',
             title:'title20',
@@ -734,7 +734,7 @@ export let mainContent = [
             isSave: true,
             favor: 10000,
             isFavor: true,
-            key: 220,
+            key: 420,
         },]
     },{
         title: '生活专区',
@@ -743,7 +743,7 @@ export let mainContent = [
             img:'assets/img/item/1.svg',
             title:'title1',
             url: 'https://blog.csdn.net/water_Popcorn/article/details/93888612',        
-            key: 21,
+            key: 51,
 
 
             view: 10000,                                    
@@ -758,7 +758,7 @@ export let mainContent = [
             isSave: true,
             favor: 10000,
             isFavor: true,
-            key: 22,
+            key: 52,
         },{
             img:'assets/img/item/3.svg',
             title:'title3',
@@ -767,7 +767,7 @@ export let mainContent = [
             isSave: true,
             favor: 10000,
             isFavor: true,
-            key: 23,
+            key: 53,
         },{
             img:'assets/img/item/4.svg',
             title:'title4',
@@ -776,7 +776,7 @@ export let mainContent = [
             isSave: true,
             favor: 10000,
             isFavor: true,
-            key: 24,
+            key: 54,
         },{
             img:'assets/img/item/5.svg',
             title:'title5',
@@ -785,7 +785,7 @@ export let mainContent = [
             isSave: true,
             favor: 10000,
             isFavor: true,
-            key: 25,
+            key: 55,
         },{
             img:'assets/img/item/6.svg',
             title:'title6',
@@ -794,7 +794,7 @@ export let mainContent = [
             isSave: true,
             favor: 10000,
             isFavor: true,
-            key: 26,
+            key: 56,
         },{
             img:'assets/img/item/7.svg',
             title:'title7',
@@ -803,7 +803,7 @@ export let mainContent = [
             isSave: true,
             favor: 10000,
             isFavor: true,
-            key: 27,
+            key: 57,
         },{
             img:'assets/img/item/8.svg',
             title:'title8',
@@ -812,7 +812,7 @@ export let mainContent = [
             isSave: true,
             favor: 10000,
             isFavor: true,
-            key: 28,
+            key: 58,
         },{
             img:'assets/img/item/9.svg',
             title:'title9',
@@ -821,7 +821,7 @@ export let mainContent = [
             isSave: true,
             favor: 10000,
             isFavor: true,
-            key: 29,
+            key: 59,
         },{
             img:'assets/img/item/10.svg',
             title:'title10',
@@ -830,7 +830,7 @@ export let mainContent = [
             isSave: true,
             favor: 10000,
             isFavor: true,
-            key: 210,
+            key: 510,
         },{
             img:'assets/img/item/11.svg',
             title:'title11',
@@ -839,7 +839,7 @@ export let mainContent = [
             isSave: true,
             favor: 10000,
             isFavor: true,
-            key: 211,
+            key: 511,
         },{
             img:'assets/img/item/12.svg',
             title:'title12',
@@ -848,7 +848,7 @@ export let mainContent = [
             isSave: true,
             favor: 10000,
             isFavor: true,
-            key: 212,
+            key: 512,
         },{
             img:'assets/img/item/13.svg',
             title:'title13',
@@ -857,7 +857,7 @@ export let mainContent = [
             isSave: true,
             favor: 10000,
             isFavor: true,
-            key: 213,
+            key: 513,
         },{
             img:'assets/img/item/14.svg',
             title:'title14',
@@ -866,7 +866,7 @@ export let mainContent = [
             isSave: true,
             favor: 10000,
             isFavor: true,
-            key: 214,
+            key: 514,
         },{
             img:'assets/img/item/15.svg',
             title:'title15',
@@ -875,7 +875,7 @@ export let mainContent = [
             isSave: true,
             favor: 10000,
             isFavor: true,
-            key: 215,
+            key: 515,
         },{
             img:'assets/img/item/16.svg',
             title:'title16',
@@ -884,7 +884,7 @@ export let mainContent = [
             isSave: true,
             favor: 10000,
             isFavor: true,
-            key: 216,
+            key: 516,
         },{
             img:'assets/img/item/17.svg',
             title:'title17',
@@ -893,7 +893,7 @@ export let mainContent = [
             isSave: true,
             favor: 10000,
             isFavor: true,
-            key: 217,
+            key: 517,
         },{
             img:'assets/img/item/18.svg',
             title:'title18',
@@ -902,7 +902,7 @@ export let mainContent = [
             isSave: true,
             favor: 10000,
             isFavor: true,
-            key: 218,
+            key: 518,
         },{
             img:'assets/img/item/19.svg',
             title:'title19',
@@ -911,7 +911,7 @@ export let mainContent = [
             isSave: true,
             favor: 10000,
             isFavor: true,
-            key: 219,
+            key: 519,
         },{
             img:'assets/img/item/20.svg',
             title:'title20',
@@ -920,7 +920,7 @@ export let mainContent = [
             isSave: true,
             favor: 10000,
             isFavor: true,
-            key: 220,
+            key: 520,
         },]
     },
 ]

@@ -2,12 +2,13 @@
     <div class="containerContent">
         <div class="content">
             <div class="titleList">{{content.title}}</div>
-            <item v-for="(it, index) in content.data" :data=it :key="index" ></item>
+            <item v-for="(it, index) in content.data" :content=it :key="'contentItem'+index" ></item>
         </div>       
     </div>
 </template>
 <script>
-import Item from './sideItem'
+// import Item from './sideItem'
+import Item from './menuItem'
 
 export default{
     props:{
@@ -85,8 +86,6 @@ export default{
   
     
     .content{
-        // width:vw(1250);
-        // height: vh(600);
         // border: 1px solid blue;
         box-sizing: border-box;
         // margin-bottom: vh(25);
@@ -99,7 +98,7 @@ export default{
            box-sizing: border-box;
            border-radius: 5px 5px 0 0;
            height: vh(25);
-           width: vw(240);
+           width: vw(160);
            text-align: center;
            font-size: vh(15);
            line-height: vh(25);
