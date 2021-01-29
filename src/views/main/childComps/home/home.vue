@@ -20,12 +20,12 @@ export default{
     },
     computed:{},
     methods:{},
-    destroyed(){
-        console.log('销毁home页面')
-    },
-    beforeCreate(){
-        console.log('创建home页面')
-    }
+    // destroyed(){
+    //     console.log('销毁home页面')
+    // },
+    // beforeCreate(){
+    //     console.log('创建home页面')
+    // }
 }
 </script>
 

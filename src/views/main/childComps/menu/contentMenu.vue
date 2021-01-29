@@ -2,7 +2,12 @@
     <div class="containerContent">
         <div class="content">
             <div class="titleList">{{content.title}}</div>
-            <item v-for="(it, index) in content.data" :content=it :key="'contentItem'+index" ></item>
+            <item class="item" v-for="it in content.data" :content=it 
+            :key="'contentMenu'+content.searchInfor+it.key" :searchInfor=content.searchInfor ></item>
+            <!-- <div v-for="it in content.data"  :key="'contentMenu'+it.key">
+                <item :content=it></item>
+            </div> -->
+
         </div>       
     </div>
 </template>
@@ -16,17 +21,27 @@ export default{
             type: Object,
             default: function() {
                 return {
-                     title: '精品专区',
-                     tag: 0,
-                     data:  [{img: "assets/img/main/loadFail.svg",
-                        title:'什么都没有',
-                        description:'真的什么都没有，或者传递参数出错',
-                        url:''
-                     }]
-                }
-                        
+                    title: '搜索结果',
+                    tag: 0,
+                    searchInfor:'',
+                    data:  [{
+                       img: "assets/img/main/loadFail.svg",
+                       title:'真的什么都没有',
+                       url:'',
+                       key:'1',
+
+                       view: 10000,                        
+                       isSave: true,
+
+                       favor: 10000,
+                       isFavor: true
+                    }]
+                }                        
             }
         }
+    },
+    destroyed(){
+        console.log('销毁contentMenu')
     },
     components:{
         Item
@@ -83,7 +98,8 @@ export default{
     // border: 1px solid green;
     box-sizing: border-box;
     // background-color: w;
-  
+    // margin-bottom: vh(20);
+    margin: 0 0 vh(20) 0;
     
     .content{
         // border: 1px solid blue;
@@ -98,12 +114,31 @@ export default{
            box-sizing: border-box;
            border-radius: 5px 5px 0 0;
            height: vh(25);
-           width: vw(160);
+           width: vw(200);
            text-align: center;
            font-size: vh(15);
            line-height: vh(25);
            overflow: hidden;
         }
+        .item:not(:last-child){
+            margin-bottom: vh(20);
+            // background-color: red;
+        }
+        
+        
     }
+    // .content:nth-child()
+    // .content:nth-child(n){
+    //         // margin-bottom: vh(20);
+    //         background-color: red;
+    // }
+    // .content:not(:first-child){
+    //         // margin-bottom: vh(20);
+    //         background-color: red;
+    // }
+    // .content:not(:first-child):not(:last-child){
+    //     margin-bottom: vh(20);
+    //     background-color: red;
+    // }
 }
 </style>

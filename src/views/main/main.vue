@@ -42,7 +42,7 @@ import {mainContent} from 'assets/js/data.js'
 
 export default{
     created: function(){
-        console.log('creatMain.vue')
+        // console.log('creatMain.vue')
         var t = {}
         t.value = mainContent
         this.$store.commit('setContentItem',t)

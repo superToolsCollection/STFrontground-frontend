@@ -12,17 +12,21 @@
        <div class="title">{{listTitle}}</div>
        <!-- 这里不要再将scroll包裹在div内 -->
        <scroll class="show" ref="scroll" @scroll="contentscroll" >
-           <div v-if="searchState===0">
-               <content-menu  v-for="(item,key) in list" :content="item" :key="key" ref="list"></content-menu>
+           <div v-show="searchState===0">
+               <content-menu class="contentMenu" v-for="(item,key) in list" :content="item" :key="'menu'+key" ref="list"></content-menu>
            </div>
-            <div v-else-if="searchState===1" class="noSearchInfor">
+           <!-- <div :class="{'displayToShow':searchState!=0}">
+               <content-menu class="contentMenu" v-for="(item,key) in list" :content="item" :key="'menu'+key" ref="list"></content-menu>
+           </div> -->
+
+            <div v-show="searchState===1" class="noSearchInfor">
                 没有搜索到任何信息
             </div>
              <!-- 显示搜索结果 -->
-            <div v-else>
+            <div v-show="searchState===2">
                 <content-menu :content="searchResult"></content-menu>
             </div>   
-        </scroll >
+        </scroll>
             
     </div>
 </template>
@@ -35,23 +39,37 @@ import Scroll from 'components/scroll/Scroll.vue'
 // import {mainData} from 'assets/js/data.js' 
 
 export default{
-    // created(){       
-    //     this.matchSearch(this.searchInfor)
-    // },
+    created(){       
+        // this.matchSearch(this.searchInfor)
+        // this.list = this.$store.state.a.contentItem;
+        this.list = this.$store.getters.getStatecontentItem;
+    },
     mounted(){
         // // 获取组件的高度
         // console.log(this.$refs["list"][0].$el.offsetHeight)
         var sum = 0;
         this.listHeight[0] = 0;
+        let marginBottm = 0;
+        let dom = document.getElementsByClassName('contentMenu')[0]
+        if(dom.currentStyle){
+            marginBottm = dom.currentStyle['marginBottom']
+        }else {
+            marginBottm = getComputedStyle(dom,null)['marginBottom']
+        }
+        //由于得到的marginBottom是带有'px'单位的字符串，因此这里需要将它转换成float类型
+        // console.log(marginBottm.substring(0,marginBottm.length-2))
+        marginBottm = parseFloat(marginBottm.substring(0,marginBottm.length-2));
+
 
         for(var i=0;i<this.$refs["list"].length;i++){
             //this.$refs["list"][i].$el.offsetHeight 获取组件的高度
-            sum += this.$refs["list"][i].$el.offsetHeight+10;
+            sum += this.$refs["list"][i].$el.offsetHeight + marginBottm;
+            // console.log(this.$refs["list"][i].$el.marginBottom)
 
             this.listHeight[i+1] = sum;
         }
         //因为最后一个contentMenu的高度是不包括margin-bottom的
-        this.listHeight[this.listHeight.length-1]-=10;
+        this.listHeight[this.listHeight.length-1] -= marginBottm;
 
         
     },
@@ -62,7 +80,7 @@ export default{
     data(){
        return {
         //    list: this.$store.contentItem,
-            list:this.$store.state.a.contentItem,
+            list:[],
 
            listHeight:[],
            //表示现在滚动到哪个data所在的区域
@@ -73,17 +91,22 @@ export default{
 
            searchInfor:'',
            searchResult: {
-                     title: '搜索结果',
-                     tag: 0,
-                     data:  [{img: "assets/img/main/loadFail.svg",
-                        title:'什么|都没|有呀',                       
-                        title1:'',
-                        title2:'',
-                        title3:'',
-                        description:'真的什么都没有，或者传递参数出错',
-                        url:''
-                     }]
-                },
+                title: '搜索结果',
+                tag: 0,
+                searchInfor:'',
+                data:  [{
+                   img: "assets/img/main/loadFail.svg",
+                   title:'真的什么都没有',
+                   url:'',
+                   key:'1',
+
+                   view: 10000,                        
+                   isSave: true,
+
+                   favor: 10000,
+                   isFavor: true
+                }]
+            },
 
         }
     },
@@ -138,44 +161,22 @@ export default{
 
         //输入框输入值发生改变
         searchInput(){
-            this.matchSearch(this.searchInfor)
+            this.searchResult.data = this.$store.getters.getSearchResult(this.searchInfor)
+            this.searchResult.searchInfor = this.searchInfor;
+            // 在0s内跳到(0,0)
+             this.$refs.scroll.scrollTo(0,0,0);
+            // console.log(this.searchResult.data)
+            this.$refs.scroll.refresh();
         },
 
-        //功能性函数
-        matchSearch(str){
-            var t = -1;
-            var item;
-            var dataGet = [];
-            
-            console.log('here1')
-            
-            for(var i = 0;i<this.list.length;i++){
-                for(var j=0;j<this.list[i].data.length;j++){
-                    item = this.list[i].data[j];
-                    t = item.title.indexOf(str);
-                    
-                    if(t>-1){
-                        // console.log(t)
-                        var data = JSON.parse(JSON.stringify(item));
-                        // console.log(data)
-                        data.title = data.title.slice(0,t)+'|'+str+'|'+data.title.slice(t+str.length)
-                        dataGet.push(data)
-                    }
-                }
-            }
-            this.searchResult.data = dataGet;
-            this.$refs.scroll.refresh()
-            console.log('contentItem',this.$store.state.a.contentItem)
 
-            
-        },
     },
-    destroyed(){
-        console.log('销毁menu页面')
-    },
-    beforeCreate(){
-        console.log('创建menu页面')
-    }
+    // destroyed(){
+    //     console.log('销毁menu页面')
+    // },
+    // beforeCreate(){
+    //     console.log('创建menu页面')
+    // }
 }
 </script>
 <style lang='scss' scoped>
@@ -288,6 +289,10 @@ export default{
             position: relative;
             top: vh(30);
         }
+        // .displayToShow{
+        //     // display:none
+        //     height: 0;
+        // }
         
     }
 }

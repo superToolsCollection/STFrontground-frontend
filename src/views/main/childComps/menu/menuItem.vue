@@ -2,7 +2,11 @@
     <div class="menuItemContainer" @click="viewIt">
         <div class="content" :title="itemTitle">
             <div class="img"><img alt="" :src= "getImg(data.img)"></div>
-            <div class="title">{{data.title}}</div>
+            <div class="title">
+                <span>{{title1}}</span>
+                <span :style="{color: 'red'}">{{title2}}</span>
+                <span>{{title3}}</span>
+            </div>
 
             <div class="save" @click.stop="saveIt" :title="saveTitle"><img alt="" :src="saveImg" ></div>
 
@@ -33,11 +37,30 @@ export default{
                         isFavor: true
                 }       
             }
+        },
+        searchInfor:{
+            type: String,
+            default: ''
         }
+    },
+    created(){
+        let t = this.data.title.indexOf(this.searchInfor);        
+        if(t>-1){
+            this.title1 = this.data.title.slice(0,t);
+            this.title2 = this.searchInfor;
+            // console.log(this.searchInfor);
+            this.title3 = this.data.title.slice(t + this.searchInfor.length);
+        }else{
+            this.title1 = this.data.title
+        }
+        console.log('创建menuItem组件',this.data.key)
     },
     data(){
        return {
            data: this.content,
+           title1:'',
+           title2:'',
+           title3:'',
         //    contentData: mainContent,
        }
     },
@@ -109,10 +132,10 @@ export default{
         }
     },
     // destroyed(){
-    //     console.log('销毁colItem组件',this.data.key)
+    //     console.log('销毁menuItem组件',this.data.key)
     // },
     // created(){
-    //     console.log('创建colItem组件',this.data.key)
+    //     console.log('创建menuItem组件',this.data.key)
     // }
 }
 </script>
@@ -128,7 +151,6 @@ export default{
     border: 1px solid gray;
     box-sizing: border-box;
     margin-right: vw(10);
-    margin-bottom: vh(20);
     padding: vh(10);
     border-radius: 5px;
 

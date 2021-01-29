@@ -53,7 +53,7 @@ export default{
             var data = []
             // console.log(getData.length,getData.length/16)
             for(var i=0; i < getData.length/16;i++){
-                console.log('pushData')
+                // console.log('pushData')
                 var t = getData.slice(i*16, Math.min((i+1)*16,getData.length))
                 // console.log(t)
                 data.push({

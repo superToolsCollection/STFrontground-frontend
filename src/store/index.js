@@ -22,7 +22,7 @@ const moduleA = {
         state.contentItem.forEach(elem1 => {
           elem1.data.forEach(elem2=>{
             if(elem2['key']===args.key){
-              console.log('getData')
+              // console.log('getData')
                elem2[args.attr] = args.value
             }
           })
@@ -42,8 +42,26 @@ const moduleA = {
         })
       });
       return col;
+    },
+    //获得menu页面的搜索结果
+    getSearchResult(state){
+      //为了让这里的gettes接收其他参数需要返回一个函数
+        return function(str){
+          var searchResult =[];
+          state.contentItem.forEach(elem1 => {
+            elem1.data.forEach(elem2=>{
+              if(elem2.title.indexOf(str)>-1){
+                  searchResult.push(elem2)       
+              }
+            })
+          });
+          return searchResult;
+        }
+    },
+    getStatecontentItem(state){
+      console.log('get state.contentItem')
+      return state.contentItem;
     }
-
   }
 }
 
