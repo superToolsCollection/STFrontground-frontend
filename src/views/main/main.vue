@@ -7,12 +7,15 @@
                 <ul>
                     <li @click="toHome">首页</li>
                     <li @click="toTools">工具主页</li>
-                    <li>关于我们</li>
-                    <li>用户</li>
+                    <!-- <li>关于我们</li> -->
                 </ul>
                 <div class="search" @click="leftPushMenu">
                     <img :src="searchTitle.img" alt=""><span>{{searchTitle.title}}</span>
-                </div>                
+                </div>
+                <div class="user">
+                    <img alt="" src="~assets/img/main/item/9.svg">
+                    <user-tag class="tag"></user-tag>
+                </div>
             </div>
         </div>
         <div class="main">
@@ -33,6 +36,7 @@
 
 <script>
 import menuRight from './childComps/menu/menu.vue'
+import UserTag from './childComps/user/userTag.vue'
 
 import searchImg from 'assets/img/main/search.svg'
 import cancleImg from 'assets/img/main/cancle.svg'
@@ -49,6 +53,7 @@ export default{
     },
     components:{
         menuRight,
+        UserTag
     },
     data(){
        return {
@@ -117,7 +122,7 @@ export default{
         background-color: white;
         // background-color: rgba(#fff,#fff,#fff);
         opacity: 1;
-        z-index: 4;
+        z-index: 2;
         border-bottom: 1px solid #f0f0f4;
         .logo{
             float: left;
@@ -145,6 +150,8 @@ export default{
         }
         
         .title{
+            $height: vh(40);
+
             float: right;
             position: absolute;
             // height = calc(percent - vh(value)) 
@@ -155,7 +162,8 @@ export default{
             margin-top: auto;
             margin-bottom: auto;
             // border: 1px solid blue;
-            height: vh(23);
+            height: $height;
+
 
             // @include clearFloat;
             ul{
@@ -176,12 +184,13 @@ export default{
                     // border: 1px solid red;
                     box-sizing: border-box;
                     color: #696969;
-                    line-height: vh(23);
+                    line-height: $height;
                     font-size: vh(18);
                     font-weight: normal;
                     margin-right: vh(40);
                     @include hoverCursor;
                 }
+                
                 // li:not(:first-child){
                 //     margin-left: vw(40);
                 // }
@@ -190,23 +199,64 @@ export default{
                 float: left;
                 box-sizing: border-box;
                 @include hoverCursor;
+                height: $height;
+                // border: 1px solid green;
+                margin-right: vh(40);
 
                 // border: 1px solid red;
                 // display: inline-block;
                 img{
                     width: vh(23);
                     height: vh(23);
+                    // line-height: $height;
+                    vertical-align: middle;
+
+                    // border: 1px solid green;
+                    box-sizing: border-box;
+                    // float: left;
+                    // color: #696969;
+                }
+                span{
+                    vertical-align: middle;
+                    color: #696969;
+                    line-height: $height;
+                    font-size: vh(18);
+                    font-weight: normal;
+                    // float: left;
+                }
+            }
+            
+            .user{
+                float: left;
+                position: relative;
+                box-sizing: border-box;
+                // border: 1px solid green;
+                overflow: hidden;
+                height: 100%;
+                border-radius: 50%;
+
+                @include hoverCursor;
+                &:hover{
+                    overflow: visible;
+                }
+
+
+                // border: 1px solid red;
+                // display: inline-block;
+                img{
+                    width: $height;
+                    height: $height;
                     // border: 1px solid green;
                     box-sizing: border-box;
                     float: left;
                     // color: #696969;
                 }
-                span{
-                    color: #696969;
-                    line-height: vh(23);
-                    font-size: vh(18);
-                    font-weight: normal;
-                    float: left;
+                .tag{
+                    position: absolute;
+                    top: vh(50);
+                    left: vw(-30);
+                    // right: vw(0);
+                    
                 }
             }
         }

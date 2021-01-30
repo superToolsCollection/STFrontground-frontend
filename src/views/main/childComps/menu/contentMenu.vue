@@ -3,7 +3,7 @@
         <div class="content">
             <div class="titleList">{{content.title}}</div>
             <item class="item" v-for="it in content.data" :content=it 
-            :key="'contentMenu'+content.searchInfor+it.key" :searchInfor=content.searchInfor ></item>
+            :key="'contentMenu'+ content.searchInfor +it.key" :searchInfor=content.searchInfor ></item>
             <!-- <div v-for="it in content.data"  :key="'contentMenu'+it.key">
                 <item :content=it></item>
             </div> -->
@@ -48,10 +48,9 @@ export default{
     },
     data(){
        return {
-           showLength: 16,
 
            btInfo: '加载更多',
-           btStatu: 1,
+           showType:'',
 
         //    showContent: 
        }

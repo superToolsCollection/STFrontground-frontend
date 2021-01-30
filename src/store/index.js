@@ -3,6 +3,24 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
+
+// contentItem格式：
+// [
+//   {
+//       title: '精品专区',
+//       tag: 1,
+//       data:  [{
+//           img:'assets/img/item/1.svg',
+//           title:'title1',
+//           url: 'https://blog.csdn.net/water_Popcorn/article/details/93888612',        
+//           view: 10000,                        
+//           isSave: false,
+//           favor: 10000,
+//           isFavor: true,
+//           key: 11
+//       },...]
+//   },...]
+//item数据相关
 const moduleA = {
   state:{
     contentItem:[],
@@ -48,13 +66,15 @@ const moduleA = {
       //为了让这里的gettes接收其他参数需要返回一个函数
         return function(str){
           var searchResult =[];
-          state.contentItem.forEach(elem1 => {
-            elem1.data.forEach(elem2=>{
-              if(elem2.title.indexOf(str)>-1){
-                  searchResult.push(elem2)       
-              }
-            })
-          });
+          if(str){
+            state.contentItem.forEach(elem1 => {
+              elem1.data.forEach(elem2=>{
+                if(elem2.title.indexOf(str)>-1){
+                    searchResult.push(elem2)       
+                }
+              })
+            });
+          }
           return searchResult;
         }
     },
@@ -65,9 +85,33 @@ const moduleA = {
   }
 }
 
+//用户相关
+const moduleB = {
+  state:{
+    userInfor:{
+      name:'张三',
+      img:'',
+      phone:'123456',
+      account:'123456',
+      password:'123456',
+      qq: '123456',
+      weixin:'123456',
+      email:'123456@qq.com',
+    },
+  },
+  mutations:{
+    
+  },
+  getters:{
+    getUserInforAll(state){
+      return state.userInfor;
+    }
+  }
+}
 
 export default new Vuex.Store({
   modules:{
-    a:moduleA
+    a:moduleA,
+    b:moduleB
   }
 })

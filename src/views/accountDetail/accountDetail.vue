@@ -1,12 +1,13 @@
 <template>
 <div class="accountDetail">
+    <div class="back" @click="backPage">返回上一页</div>
     <div class="title"><span>账号资料</span></div>
     <div class="inforDetail">
         <div class="inputComps">
-            <input-comp class="inputBox" title="用户名" placeholder="输入您的用户名" alter="请输入正确的用户名"></input-comp>
-            <input-comp class="inputBox" title="电子邮箱" placeholder="注册并验证邮箱" alter="请输入正确的邮箱名"></input-comp>
-            <input-comp class="inputBox" title="QQ账号" placeholder="输入您的QQ账号" alter="请输入正确的QQ账号"></input-comp>
-            <input-comp class="inputBox" title="微信账号" placeholder="输入您的微信账号" alter="请输入正确的微信账号"></input-comp>
+            <input-comp class="inputBox" title="用户名" :default-value="userInfor.name" placeholder="输入您的用户名" alter="请输入正确的用户名"></input-comp>
+            <input-comp class="inputBox" title="电子邮箱" :default-value="userInfor.email" placeholder="注册并验证邮箱" alter="请输入正确的邮箱名"></input-comp>
+            <input-comp class="inputBox" title="QQ账号" :default-value="userInfor.qq" placeholder="输入您的QQ账号" alter="请输入正确的QQ账号"></input-comp>
+            <input-comp class="inputBox" title="微信账号" :default-value="userInfor.weixin" placeholder="输入您的微信账号" alter="请输入正确的微信账号"></input-comp>
         </div>
         <div class="profileImg"><img :src="profile" alt=""></div>
         <button class="ensure">确定</button>
@@ -32,8 +33,22 @@ export default{
     components:{
         inputComp
     },
+    created(){
+        this.userInfor = this.$store.getters.getUserInforAll;
+    },
     data(){
        return {
+        //    userInfor:{
+        //         name:'张三',
+        //         img:'',
+        //         phone:'12345678901',
+        //         account:'123456',
+        //         password:'123456',
+        //         qq: '123456',
+        //         weixin:'123456',
+        //         email:'123456@qq.com',
+        //     }
+           userInfor:{},
            profile: profileImg,
        }
     },
@@ -42,6 +57,14 @@ export default{
     methods:{
         valueChange(newValue){
             console.log(newValue)
+        },
+        backPage(){
+            // if(window.histroy.length<=1){
+            //     this.$router.push('/main/home')
+            // }else{
+            //     // this.$router.go(-1);
+            // }
+            this.$router.go(-1);
         }
     }
 }
@@ -50,6 +73,20 @@ export default{
 @import "scss-normalize";
 .accountDetail{
     height: vh(1400);
+    .back{
+        @include hoverCursor;
+        position: fixed;
+        top: vh(20);
+        left: vw(20);
+        // width: vw(76);
+        height: vh(38);  
+        line-height: vh(38);
+        border-radius: 5px;
+        padding: 8px;    
+        background-color: rgba(57, 109, 248, 100);           
+        color: rgba(255, 255, 255, 100);
+        outline: none;
+    }
     .title{
         position: absolute;
         left: 0;

@@ -11,29 +11,34 @@
        
        <div class="title">{{listTitle}}</div>
        <!-- 这里不要再将scroll包裹在div内 -->
-       <scroll class="show" ref="scroll" @scroll="contentscroll" >
-           <div v-show="searchState===0">
-               <content-menu class="contentMenu" v-for="(item,key) in list" :content="item" :key="'menu'+key" ref="list"></content-menu>
+       <scroll class="show" ref="scroll" @scroll="contentscroll" v-show="searchState===0">
+           <div>
+               <content-menu class="contentMenu"  v-for="(item,key) in list" :content="item" :key="'menu'+key" ref="list"></content-menu>
            </div>
            <!-- <div :class="{'displayToShow':searchState!=0}">
                <content-menu class="contentMenu" v-for="(item,key) in list" :content="item" :key="'menu'+key" ref="list"></content-menu>
            </div> -->
 
+              
+        </scroll>
+        <scroll class="show" ref="scrollNew" v-show="searchState!=0">
             <div v-show="searchState===1" class="noSearchInfor">
                 没有搜索到任何信息
             </div>
              <!-- 显示搜索结果 -->
-            <div v-show="searchState===2">
+            <div v-show ="searchState===2">
                 <content-menu :content="searchResult"></content-menu>
-            </div>   
+            </div> 
         </scroll>
             
     </div>
 </template>
 
 <script>
+// import {mainContent} from 'assets/js/data.js' 
 import contentMenu from './contentMenu.vue'
 import Scroll from 'components/scroll/Scroll.vue'
+import { setTimeout } from 'timers';
 
 
 // import {mainData} from 'assets/js/data.js' 
@@ -85,6 +90,7 @@ export default{
            listHeight:[],
            //表示现在滚动到哪个data所在的区域
            inArea:0,
+           position:0,
 
            //在使用scrollTo跳转过程中锁住scroll事件的响应函数。
            lock: false,
@@ -161,22 +167,21 @@ export default{
 
         //输入框输入值发生改变
         searchInput(){
-            this.searchResult.data = this.$store.getters.getSearchResult(this.searchInfor)
+            console.log('searchInfor',this.searchInfor)
+            if(this.searchInfor){
+                this.searchResult.data = this.$store.getters.getSearchResult(this.searchInfor)                 
+                this.$refs.scrollNew.scrollTo(0,0,0);                
+            }
+            else{
+                this.searchResult.data = [];
+                // this.$refs.scroll.scrollTo(0,this.position,0);
+            }
             this.searchResult.searchInfor = this.searchInfor;
-            // 在0s内跳到(0,0)
-             this.$refs.scroll.scrollTo(0,0,0);
-            // console.log(this.searchResult.data)
-            this.$refs.scroll.refresh();
+            this.$refs.scrollNew.refresh();
+            // console.log(this.inArea)
+            // console.log('where',this.$refs.scroll.getScrollY())
         },
-
-
     },
-    // destroyed(){
-    //     console.log('销毁menu页面')
-    // },
-    // beforeCreate(){
-    //     console.log('创建menu页面')
-    // }
 }
 </script>
 <style lang='scss' scoped>
@@ -199,10 +204,8 @@ export default{
         box-sizing: border-box;
         // border: 1px solid red;
         position: relative;
-        z-index: 4;
+        z-index: 2;
         background-color: white;
-
-
        
 
         input{
@@ -272,7 +275,7 @@ export default{
         line-height: vh(25);
         overflow: hidden;
         opacity: 1;
-        z-index: 3;
+        z-index: 1;
 
     }
     .show{

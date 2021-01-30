@@ -2,14 +2,14 @@
     <div class="containerContent">
         <div class="title">{{content.title}}</div>
         <div class="content">
-            <item v-for="(it, index) in showContent" :data=it :key="index"></item>
+            <item v-for="(it, index) in showContent" :content=it :key="index"></item>
         </div>
         <div class="showMore" @click="showMore" v-show="(content.data.length>16)">{{btInfo}}</div>
         
     </div>
 </template>
 <script>
-import Item from '../common/item.vue'
+import Item from './toolsItem.vue'
 
 export default{
     props:{
@@ -17,18 +17,27 @@ export default{
             type: Object,
             default: function() {
                 return {
-                     title: '精品专区',
-                     tag: 1,
-                     data:  [{img: "assets/img/main/loadFail.svg",
-                        title:'什么都没有',
-                        description:'真的什么都没有，或者传递参数出错',
-                        url:''
-                     }]
-                }
-                        
+                    title: '搜索结果',
+                    tag: 0,
+                    data:  [{
+                       img: "assets/img/main/loadFail.svg",
+                       title:'真的什么都没有',
+                       url:'',
+                       key:'1',
+
+                       view: 10000,                        
+                       isSave: true,
+
+                       favor: 10000,
+                       isFavor: true
+                    }]
+                }                         
             }
         }
     },
+    // created(){
+    //     console.log(this.content);
+    // },
     components:{
         Item
     },
@@ -84,12 +93,15 @@ export default{
     box-sizing: border-box;
     padding: vw(26);
     margin-left: vw(7);
-    transition: height .25s;
+    // transition: height .25s;
+    width:vw(882);
+    // transition: height 3s ease;
 
   
     .title{
         display: inline-block;
         position: relative;
+        top: vh(-10);
         @include setAttribute('&',right,50%,80);
         line-height: vh(25);
         font-size: vh(25);
@@ -107,7 +119,7 @@ export default{
         // border: 1px solid blue;
         box-sizing: border-box;
         //没有设定width属性，设定负margin-left/right会将元素拖向对应的方向，并增加宽度，此时的margin的作用就像padding一样: https://www.html.cn/web/css/17515.html
-        margin-right: vw(-25);
+        margin-right: vw(-14);
         // margin-bottom: vh(25);
     }
     .showMore{
@@ -130,8 +142,6 @@ export default{
             background-color: #C0392B;
         }
         @include hoverCursor;
-
     }
-
 }
 </style>

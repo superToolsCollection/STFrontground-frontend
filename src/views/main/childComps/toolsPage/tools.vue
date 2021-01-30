@@ -3,7 +3,8 @@
         <div class="area" v-for="(it, index) in list"  :key="index">
             <!-- class为setShow的元素存在的意义纯粹是为了让content-main出现在我想看到的地方 -->
             <div class="setShow" :id= "'area'+index"></div>
-            <content-main :content=it @packUp="packUp('area'+index)" ></content-main>
+            <content-main :content=it  ></content-main>
+            <!-- @packUp="packUp('area'+index)" -->
         </div>                  
     </div>
 </template>
@@ -11,7 +12,7 @@
 
 import contentMain from './content.vue'
 
-import {mainData} from 'assets/js/data.js' 
+// import {mainData} from 'assets/js/data.js' 
 
 
 export default{
@@ -20,7 +21,7 @@ export default{
     },
     data(){
        return {
-           list: mainData,
+           list: this.$store.getters.getStatecontentItem,
         }
     },
     computed:{
@@ -40,9 +41,7 @@ export default{
             // elem.scrollIntoView(true);
             elem.scrollIntoView({behavior: "smooth", block: "start"});
 
-        }
-        
-        
+        }        
     }
 }
 </script>
@@ -50,16 +49,18 @@ export default{
 @import "scss-normalize";
 .tools{
     position: relative;
+    scroll-behavior: smooth;
     
     // left: 0;
     // right: 0;
     // top: 0;
-    // margin-left: auto;
-    // margin-right: auto;
+    margin-left: auto;
+    margin-right: auto;
     // margin-bottom: vh(50);
     // border: 1px solid red;
     box-sizing: border-box;
-    width:vw(1250);
+    width:vw(900);
+    // width:vw(882);
     // height: vh(580);
     // @include changeHeight(&,50);
     // overflow: hidden;

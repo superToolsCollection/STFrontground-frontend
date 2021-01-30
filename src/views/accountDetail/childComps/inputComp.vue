@@ -32,6 +32,10 @@ export default{
         test:{
             type: String,
             default:''
+        },
+        defaultValue:{
+            type: String,
+            default:''
         }
     },
     mounted:function () {
@@ -42,7 +46,7 @@ export default{
     data(){
        return {
 
-           inputDate:'',
+           inputDate: this.defaultValue,
 
            inputTest: '',
 

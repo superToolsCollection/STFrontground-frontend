@@ -24,7 +24,7 @@
         </div>
 
         <div class="fgpw" @click="toResetPs">忘记密码</div>
-        <button class="login" :disabled="logActive">登录</button>
+        <button class="login" :disabled="logActive" @click="login">登录</button>
         <div class="textShow">
             <span class="txt1" >没有账号？</span>
             <a class="txt2" @click="toSignUp">立即注册</a>
@@ -151,6 +151,10 @@ export default{
         },
         toResetPs:function () {
             this.$router.push('/sign/resetPs')
+        },
+        // 若登陆成功跳转到主页main
+        login:function(){
+            this.$router.push('/main/home')
         }
         
         
