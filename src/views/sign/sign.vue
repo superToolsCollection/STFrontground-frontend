@@ -1,5 +1,8 @@
 <template>
     <div class="container">
+        <wave ref="signRef1"></wave>
+        <wave ref="signRef2"></wave>
+        <wave ref="signRef3"></wave>
         <div class="tab">
             <img class="tab1">
             <span class="tab2">superTools</span>
@@ -23,12 +26,23 @@
 // // import signIn from './childComps/signIn.vue'
 // // import signUp from './childComps/signUp.vue'
 // import reSetPs from './childComps/reSetPs.vue'
+import wave from 'components/canvsWave/wave.vue'
 export default{
     // components:{
     //     signIn,
     //     signUp,
     //     reSetPs
     // },
+    mounted(){
+        setTimeout(()=>{
+            this.$refs.signRef1.setColor("rgba(127,255,212,0.3)")
+            this.$refs.signRef2.setColor("rgba(240,230,140,0.3)")
+            this.$refs.signRef3.setColor("rgba(144,238,144,0.3)")
+        })
+    },
+    components:{
+        wave
+    },
     data(){
        return {
         //    IUF:2
@@ -133,6 +147,7 @@ export default{
         .right{
             display: inline-block;
             position: relative;
+            background-color: rgba(255, 255, 255, 100);
             left: 0;
             width: 50%;
             height: 100%;
