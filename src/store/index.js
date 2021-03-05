@@ -24,6 +24,7 @@ Vue.use(Vuex)
 const moduleA = {
   state:{
     contentItem:[],
+    collections:[],
   },
   mutations:{
     // args是一个对象，其中args.value是一个类数据
@@ -41,25 +42,38 @@ const moduleA = {
           elem1.data.forEach(elem2=>{
             if(elem2['key']===args.key){
               // console.log('getData')
-               elem2[args.attr] = args.value
+              elem2[args.attr] = args.value
+
+              if(args.attr==='isSave'){
+                if(args.value){state.collections.push(elem2)}
+                else{
+                  state.collections=state.collections.filter(function(value){return value.key!==args.key})
+                }
+              }
+
             }
           })
-        });
+        });       
+        
+
       }      
     }
   },
   getters:{
     getCollections(state){
-      var col =[];
-      state.contentItem.forEach(elem1 => {
-        elem1.data.forEach(elem2=>{
-          if(elem2.isSave){
-            col.push(elem2)            
-            // console.log('elem2',elem2)
-          }
-        })
-      });
-      return col;
+      if(state.collections.length===0){
+        let i=0;
+        state.contentItem.forEach(elem1 => {
+          elem1.data.forEach(elem2=>{
+            if(elem2.isSave){
+              elem2.num=i++;
+              state.collections.push(elem2)            
+              // console.log('elem2',elem2)
+            }
+          })
+        });
+      }
+      return state.collections;
     },
     //获得menu页面的搜索结果
     getSearchResult(state){

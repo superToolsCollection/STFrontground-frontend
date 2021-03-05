@@ -10,7 +10,9 @@
     </div>
 </template>
 <script>
-import colShow from './colShow.vue'
+// import colShow from './colShow.vue'
+import colShow from './show.vue'
+
 export default{
     components:{
         colShow
@@ -40,7 +42,7 @@ export default{
         height: vh(45);
         box-sizing: border-box;
         // margin-top: vh(9);
-        margin: vh(30) auto;
+        margin: vh(50) auto;
         text-align: center;
         // border: 1px solid green;
         box-sizing: border-box;
@@ -56,7 +58,7 @@ export default{
         height: vh(560);
         width: vw(1000);
         // border: 1px solid yellow;
-        margin-top: vh(30);
+        margin-top: vh(40);
         margin-left: auto;
         margin-right: auto;
         overflow: hidden;
