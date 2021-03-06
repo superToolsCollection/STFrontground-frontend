@@ -24,9 +24,10 @@
             </div>
 
             <div class="content" >
-                <keep-alive>
-                    <router-view></router-view>
-                </keep-alive>
+                <!-- <keep-alive>
+                </keep-alive> -->
+                <router-view></router-view>
+
             </div>
 
 
@@ -40,7 +41,7 @@ import UserTag from './childComps/user/userTag.vue'
 
 import searchImg from 'assets/img/main/search.svg'
 import cancleImg from 'assets/img/main/cancle.svg'
-import {mainContent} from 'assets/js/data.js' 
+import {data} from 'assets/js/data.js' 
 
 // import bgImg from 'assets/img/background.png'
 
@@ -48,7 +49,7 @@ export default{
     created: function(){
         // console.log('creatMain.vue')
         var t = {}
-        t.value = mainContent
+        t.value = data
         this.$store.commit('setContentItem',t)
     },
     components:{

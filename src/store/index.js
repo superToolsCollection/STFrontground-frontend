@@ -23,7 +23,7 @@ Vue.use(Vuex)
 //item数据相关
 const moduleA = {
   state:{
-    contentItem:[],
+    contentItem:{},
     collections:[],
   },
   mutations:{
@@ -32,69 +32,29 @@ const moduleA = {
       // console.log('setData');
       if(args){
         state.contentItem = args.value;
-        // console.log(args.value)
+        console.log(args.value)
       }
     },
     // args是一个对象{key,attr,value},代表将标志为key的元素的attr属性设置为value
     setItemValue(state,args){
-      if(args.key>-1){
-        state.contentItem.forEach(elem1 => {
-          elem1.data.forEach(elem2=>{
-            if(elem2['key']===args.key){
-              // console.log('getData')
-              elem2[args.attr] = args.value
-
-              if(args.attr==='isSave'){
-                if(args.value){state.collections.push(elem2)}
-                else{
-                  state.collections=state.collections.filter(function(value){return value.key!==args.key})
-                }
-              }
-
-            }
-          })
-        });       
-        
-
+      if((typeof args.key === 'string')&&(args.key.indexOf('&')!==-1)){
+        state.contentItem.setAtrr(args.key,args.attr,args.value)
       }      
     }
   },
   getters:{
     getCollections(state){
-      if(state.collections.length===0){
-        let i=0;
-        state.contentItem.forEach(elem1 => {
-          elem1.data.forEach(elem2=>{
-            if(elem2.isSave){
-              elem2.num=i++;
-              state.collections.push(elem2)            
-              // console.log('elem2',elem2)
-            }
-          })
-        });
-      }
-      return state.collections;
+      return state.contentItem.getSaved();
     },
     //获得menu页面的搜索结果
     getSearchResult(state){
       //为了让这里的gettes接收其他参数需要返回一个函数
-        return function(str){
-          var searchResult =[];
-          if(str){
-            state.contentItem.forEach(elem1 => {
-              elem1.data.forEach(elem2=>{
-                if(elem2.title.indexOf(str)>-1){
-                    searchResult.push(elem2)       
-                }
-              })
-            });
-          }
-          return searchResult;
-        }
+        return state.contentItem.getSearchFunction();
     },
     getStatecontentItem(state){
-      console.log('get state.contentItem')
-      return state.contentItem;
+      return state.contentItem.getData();
+      // console.log('get state.contentItem')
+      // return state.contentItem;
     }
   }
 }

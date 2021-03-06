@@ -167,9 +167,9 @@ export default{
 
         //输入框输入值发生改变
         searchInput(){
-            console.log('searchInfor',this.searchInfor)
+            // console.log('searchInfor',this.searchInfor)
             if(this.searchInfor){
-                this.searchResult.data = this.$store.getters.getSearchResult(this.searchInfor)                 
+                this.searchResult.data = this.$store.getters.getSearchResult(this.searchInfor);               
                 this.$refs.scrollNew.scrollTo(0,0,0);                
             }
             else{

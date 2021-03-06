@@ -67,7 +67,7 @@ export default{
         colElem.style.width = this.itemOuterWidth*(this.style.colNum-1)+this.itemWidth+'px';
         colElem.style.height = this.itemOuterHeight*3+this.itemHeight+2+'px';
 
-        //添加 col之间的间隔
+        //设置col的宽度，这里设置col之间的间隔为50
         this.colWidth = this.itemOuterWidth*(this.style.colNum-1)+this.itemWidth + 50;
 
 
@@ -94,7 +94,6 @@ export default{
     },
     computed:{
         list:function(){
-            console.log('changeList')
             return this.$store.getters.getCollections;
         },
         numCol: function(){
@@ -118,11 +117,17 @@ export default{
             console.log(newValue)
             if((this.numCol===this.indexCol)&&(this.indexCol>0)) this.indexCol--;
             this.$nextTick(()=>this.refreshContent())
-            // setTimeout(()=>this.refreshContent(),0)
+
+            // setTimeout(()=>this.refreshContent(),100)
+            // setTimeout(()=>this.$nextTick(()=>this.refreshContent()),0)
         },
         
     },
     methods:{
+        getLocalIndex(x,y){
+            let i = Math.floor(x/this.itemOuterWidth), j = Math.floor(y/this.itemOuterHeight);
+            console.log('local:',i,j)
+        },
         getItemTop(num){
             let p,i;
             p = Math.floor(num/this.style.Num);
@@ -136,7 +141,8 @@ export default{
             return p*this.colWidth + j*this.itemOuterWidth
         },
         refreshContent(){
-            let elm; 
+            let elm;
+            // console.log(this.list.length,this.list); 
             for(let i=0;i<this.list.length;i++){
                 // console.log(this.list[num].key,p,i,j);
                 elm = document.getElementById('col'+this.list[i].key);
@@ -197,13 +203,8 @@ export default{
             event.returnValue = false
 
 
-            function drag(event1){
-                // let mouseY = event.pageY, mouseX = event.pageX;
-                let nLeft = elmStartLeft + event1.pageX - mouseStartLeft, nTop = elmStartTop + event1.pageY - mouseStartTop;
-                // console.log(nLeft,nTop)
-                elem.style.left = nLeft + 'px';
-                elem.style.top = nTop + 'px';
 
+            function drag(event1){
                 //阻止浏览器的默认行为，来阻止mouseup事件的丢失：https://blog.csdn.net/isea533/article/details/71703442
                 event1 = event1 || window.event;
                 //这两个IE9以下不支持
@@ -216,6 +217,17 @@ export default{
                 //下面两个谷歌在新版本已经支持，火狐不支持
                 event1.cancelBubble = true;
                 event1.returnValue = false
+
+
+                // let mouseY = event.pageY, mouseX = event.pageX;
+                let nLeft = elmStartLeft + event1.pageX - mouseStartLeft, nTop = elmStartTop + event1.pageY - mouseStartTop;
+                // console.log(nLeft,nTop)
+                elem.style.left = nLeft + 'px';
+                elem.style.top = nTop + 'px';
+
+                let centerX = nLeft + context.itemOuterWidth/2, centerY = nTop + context.itemOuterHeight/2;
+                context.getLocalIndex(centerX,centerY);
+                console.log(centerX,centerY);                
             
             }
 
