@@ -1712,6 +1712,8 @@ function dataShow(){
         let [i,j] = [parseInt(s1),parseInt(s2)];
         this.mainContent[i].data[j].isSave = true;
     }
+
+    let tIndex = 0;
     for(let n=0;n<this.mainContent.length;n++){
         let tag = parseInt(this.mainContent[n].tag);
         let data = this.mainContent[n].data;
@@ -1720,6 +1722,7 @@ function dataShow(){
             if(!data[m].isSave){
                 data[m].isSave = false
             }else{
+                data[m].index = tIndex++;
                 this.saved.push(data[m])
             }
         }
@@ -1789,19 +1792,24 @@ dataShow.prototype.getSearchFunction = function(){
 //改变saved中的数据的位置,注意返回的index1和index2是this.loveItem和this.saved数组的下标。
 // 如果index1<index2，就将index1+1到index2的元素前移一位，index2的位置放原先在index1位置的元素
 // 如果index1>index2，就将index2到index1-1的元素后移一位，index2的位置放原先在index1位置的元素
-dataShow.prototype.excSavedPosition = function(index1,index2){    
+dataShow.prototype.excSavedPosition = function(index1,index2){ 
+    console.log('exchangePosition',index1,index2)   
     if(index1<index2){
-        let loveData = this.loveData[index1]
+        let loveData = this.saved[index1]
         for(let i=index1+1;i<=index2;i++){
-            this.loveData[i-1] = this.loveData[i];
+            this.saved[i].index = i-1; 
+            this.saved[i-1] = this.saved[i];
         }
-        this.loveData[index2] = loveData;       
+        loveData.index = index2;
+        this.saved[index2] = loveData;       
     } else if(index2<index1){
-        let loveData = this.loveData[index1]
+        let loveData = this.saved[index1]
         for(let i=index1-1;i>=index2;i--){
-            this.loveData[i+1] = this.loveData[i];
+            this.saved[i+1] = this.saved[i];
+            this.saved[i].index = i+1;
         }
-        this.loveData[index2] = loveData;       
+        loveData.index = index2;
+        this.saved[index2] = loveData;       
     }
 }
 

@@ -24,8 +24,12 @@ const routes = [
 
   {
     path: '/',
-    redirect: '/main/home'
+    redirect: '/sign/signIn'
   },
+  // {
+  //   path: '/',
+  //   redirect: '/main/home'
+  // },
   {
     path:'/main',
     component: main,

@@ -40,6 +40,9 @@ const moduleA = {
       if((typeof args.key === 'string')&&(args.key.indexOf('&')!==-1)){
         state.contentItem.setAtrr(args.key,args.attr,args.value)
       }      
+    },
+    excSavedPosition(state,args){
+      state.contentItem.excSavedPosition(args.num1,args.num2);
     }
   },
   getters:{
