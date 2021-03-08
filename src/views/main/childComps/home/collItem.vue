@@ -109,9 +109,9 @@ export default{
             }
         }
     },
-    destroyed(){
-        console.log('销毁colItem组件',this.data.key)
-    },
+    // destroyed(){
+    //     console.log('销毁colItem组件',this.data.key)
+    // },
     // created(){
     //     console.log('创建colItem组件',this.data.key)
     // }

@@ -104,6 +104,7 @@ export default{
            
 
            timer:false,
+           itemMoveMxTime:0,
 
         }
     },
@@ -122,18 +123,18 @@ export default{
         }
     },
     watch:{
-        indexCol(newValue){
-            if((newValue>=0)&&(newValue<this.numCol)){
-                // document.getElementById('colContainer').style.marginLeft =  -this.colWidth*newValue + 'px';
-                // document.getElementById('colContainer').style.left =  ;
-                this.colPageLeft = this.indexCol*(this.colWidth+this.colGap);
-                this.colPageRight = this.colPageLeft + this.colWidth;
-            }else{
-                console.log('src\\views\\main\\childComps\\home\\colShow.vue中的 indexCol ERRO','the value of indexCol is',newValue);
-            }
-        },
-        listLength(newValue){
-            console.log(newValue)
+        // indexCol(newValue){
+        //     if((newValue>=0)&&(newValue<this.numCol)){
+        //         // document.getElementById('colContainer').style.marginLeft =  -this.colWidth*newValue + 'px';
+        //         // document.getElementById('colContainer').style.left =  ;
+        //         this.colPageLeft = this.indexCol*(this.colWidth+this.colGap);
+        //         this.colPageRight = this.colPageLeft + this.colWidth;
+        //     }else{
+        //         console.log('src\\views\\main\\childComps\\home\\colShow.vue中的 indexCol ERRO','the value of indexCol is',newValue);
+        //     }
+        // },
+        listLength(){
+            // console.log(newValue)
             if((this.numCol===this.indexCol)&&(this.indexCol>0)) this.indexCol--;
             this.$nextTick(()=>this.refreshContent())
 
@@ -146,9 +147,14 @@ export default{
         getLocalIndex(x,y){
             let p = Math.floor(x/(this.colWidth+this.colGap))
             let j = Math.floor((x-p*(this.colWidth+this.colGap))/this.itemOuterWidth), i = Math.floor(y/this.itemOuterHeight);
-            console.log('local:',p,i,j);
+            // console.log('local:',p,i,j);
             if(p>this.numCol) p = this.numCol-1;
-            return p*this.style.Num + i*this.style.colNum +j;
+            let index = p*this.style.Num + i*this.style.colNum +j;
+            if(index>this.listLength-1){index=this.listLength-1;}
+            if(index<0){
+                index = 0;
+            }
+            return index;
         
         },
         getItemTop(num){
@@ -164,14 +170,17 @@ export default{
             return p*(this.colWidth+this.colGap) + j*this.itemOuterWidth
         },
         refreshContent(){
-            let elm;
+            let elm,t=0;
+            this.itemMoveMxTime = 0;
             // console.log(this.list.length,this.list); 
             for(let i=0;i<this.list.length;i++){
                 // console.log(this.list[num].key,p,i,j);
                 elm = document.getElementById('col'+this.list[i].key);
                 elm.style.left =  this.getItemLeft(i)+'px';
                 elm.style.top = this.getItemTop(i) + 'px';
-                elm.style.transitionDuration = 1.5*(Math.random()+0.5) + 's';
+                t = 1.5*(Math.random()+0.5);
+                elm.style.transitionDuration = t + 's';
+                if(t>this.itemMoveMxTime){this.itemMoveMxTime = t}
             }
         },
         handleWhell(e){
@@ -179,13 +188,13 @@ export default{
            throttle(()=>{
                 // console.log(this);
                 if((e.deltaY>0)&&(this.indexCol < this.numCol-1)){
-                    console.log("向上翻页")
+                    // console.log("向上翻页")
                     this.indexCol++;
-                    console.log(this.indexCol)
+                    // console.log(this.indexCol)
                 } else if((e.deltaY<0)&&(this.indexCol>0)){
-                    console.log("向下翻页")
+                    // console.log("向下翻页")
                     this.indexCol--;
-                    console.log(this.indexCol)
+                    // console.log(this.indexCol)
 
                 }
             })
@@ -194,23 +203,27 @@ export default{
             this.indexCol = index;      
         },
         dragStart(num,event){
-            console.log('start')
-            console.log('num:',num)
+            // console.log('start')
+            // console.log('num:',num)
             if(this.timer) return false;
             this.timer = true;
             let context = this;
 
             // console.log('startDrag')
             let elem = document.getElementById('col'+this.list[num].key);
+            elem.classList.add('rmTransition');
+
             // let colElem = document.getElementById('outerContainer');
             let elmStartTop = parseInt(elem.style.top.slice(0,elem.style.top.length-2));
-            let elmStartLeft = parseInt(elem.style.left.slice(0,elem.style.left.length-2));
+            // 注意这里减去了elem所在的indexCol的左边界,表示元素相对indexCol这个colPage左边界的位置。
+            // 目的是为了配合在drag事件响应函数中配合event1.clientX来计算拖动的距离。
+            let elmStartLeft = parseInt(elem.style.left.slice(0,elem.style.left.length-2))-this.indexCol*(this.colWidth+this.colGap);
             let mouseStartTop = event.pageY;
             let mouseStartLeft = event.pageX;
             let domRect = elem.getBoundingClientRect();
             let mouseInItemTop = event.pageY - (domRect.top + window.pageYOffset), mouseInItemLeft = event.pageX - (domRect.left+window.pageXOffset);
             // let nPosition = 
-            console.log(mouseInItemTop, mouseInItemLeft);
+            // console.log(mouseInItemTop, mouseInItemLeft);
             //当前colPage的左右边界
             // let colPageLeft = this.indexCol*(this.colWidth+this.colGap);
            // console.log(elmStartTop,elmStartLeft,mouseStartTop,mouseStartLeft);
@@ -237,17 +250,29 @@ export default{
 //关于drag的代码
             let centerX;
             let centerY;
+            let oldX = mouseStartLeft;
+            let direction=0;//表示拖拽过程中，colPage的移动方向，0表示不移动，1表示向右移动，2表示向左移动。
+            let dragDire = 0;//表示拖拽的方向，0表示不移动，1表示向右移动，2表示向左移动
             // //如果拖动到边界处就左右滑动colPage,这里放在节流函数中，防止越界后连续滑动到最左或最右。
-            
+            let colPageLeft = this.indexCol*(this.colWidth+this.colGap),colPageRight = colPageLeft + this.colWidth;
+
             function jumpColPage(){
-                // console.log('centerX',centerX)
-                if((centerX>context.colPageRight)&&(context.indexCol<context.numCol-1)){
+                // console.log('centerX',centerX,colPageLeft,colPageRight,direction,dragDire)
+            
+                if(((centerX>=colPageRight)&&(direction===1)&&(dragDire===2))||((centerX<=colPageLeft)&&(direction===2)&&(dragDire===1)))return;
+                if((centerX>colPageRight)&&(context.indexCol<context.numCol-1)){
                     context.indexCol++;
-                    console.log('col+1',context.indexCol,centerX,context.colPageLeft,context.colPageRight);
+                    colPageLeft += context.colWidth+context.colGap;
+                    colPageRight += context.colWidth+context.colGap;
+                    // console.log('col+1',context.indexCol,centerX,colPageLeft,colPageRight);
+                    direction=1;
                      // centerX += (context.colWidth+context.colGap);
-                }else  if((centerX<context.colPageLeft)&&(context.indexCol>0)){
+                }else  if((centerX<colPageLeft)&&(context.indexCol>0)){
                     context.indexCol--;
-                    console.log('col-1',context.indexCol,centerX,context.colPageLeft,context.colPageRight);
+                    colPageLeft -= context.colWidth+context.colGap;
+                    colPageRight -= context.colWidth+context.colGap;
+                    // console.log('col-1',context.indexCol,centerX,colPageLeft,colPageRight);
+                    direction=2;
                    // centerX -= (context.colWidth+context.colGap);
                 }
             }
@@ -256,12 +281,12 @@ export default{
 
 
             function drag(event1){
+                // console.log('num:',num)
                 // if(lock) return;
                 // lock = true;
-                elem.classList.add('rmTransition')
-                elem.style.position = 'fixed';
+                if(elem.style.position !== 'fixed'){elem.style.position = 'fixed';}
 
-                console.log('drag')
+                // console.log('drag')
                 //阻止浏览器的默认行为，来阻止mouseup事件的丢失：https://blog.csdn.net/isea533/article/details/71703442
                 event1 = event1 || window.event;
                 //这两个IE9以下不支持
@@ -276,13 +301,22 @@ export default{
                 event1.returnValue = false;
 
 
+                if(event1.pageX>oldX){
+                    dragDire = 1;
+                }
+                else if(event1.pageX<oldX){
+                    dragDire = 2;
+                }else{
+                    dragDire = 0;
+                }
+                oldX = event1.pageX;
                 // let mouseY = event.pageY, mouseX = event.pageX;
                 // //算出的是鼠标相对 id = outerContainer的元素左上角的位置。
                 // let nLeft = elmStartLeft + event1.pageX - mouseStartLeft, nTop = elmStartTop + event1.pageY - mouseStartTop;
                 // // console.log(nLeft,nTop)
                 //用来记录在拖拽过程中被拖拽的元素的中心所在的位置
-                centerX = elmStartLeft + context.itemOuterWidth/2+event1.pageX - mouseStartLeft + context.colPageLeft; 
-                centerY= elmStartTop + context.itemOuterHeight/2 +event1.pageY - mouseStartTop;
+                centerX = elmStartLeft + context.itemWidth/2+event1.pageX - mouseStartLeft + colPageLeft; 
+                centerY= elmStartTop + context.itemHeight/2 +event1.pageY - mouseStartTop;
                 
                 slideColPage();
                 // console.log(event1)
@@ -296,7 +330,6 @@ export default{
                 
                 // if(centerX>((context.style.colNum-1)*context.itemOuterWidth+context.itemWidth))
                 // context.getLocalIndex(centerX,centerY);
-                // console.log(centerX,centerY);  
                 
                 // setTimeout(()=>lock=false,10);
             
@@ -307,21 +340,42 @@ export default{
                 elem.removeEventListener('mousemove',drag)
                 elem.removeEventListener('mouseup',dragEnd)
                 elem.removeEventListener('mouseleave',dragEnd)
-                // console.log('mouseup',event2)
-                console.log('end');
+                // let colRight = context.numCol*context.colWidth+(context.numCol-1)*context.colGap;
+                let colBottom = context.style.Num/context.style.colNum*context.itemOuterHeight + context.itemOuterHeight-context.itemHeight;
+
                 elem.style.position = 'absolute';
-                let num2 = context.getLocalIndex(centerX,centerY);
-                context.$store.commit('excSavedPosition',{'num1':num,'num2':num2});
-                context.$nextTick(()=>{context.refreshContent();setTimeout(()=>context.timer = false,0)});
+                
+                if((centerX<colPageLeft)||(centerY<0)||
+                (centerX>colPageRight)||
+                (centerY>colBottom)){
+                    setTimeout(()=>{
+                        elem.classList.remove('rmTransition');
+                        context.timer = false;
+                        },50);
+                    
+                    elem.style.left = context.getItemLeft(num) + 'px';
+                    elem.style.top = context.getItemTop(num) + 'px';
+
+                    let p = Math.floor(num/context.style.Num);
+                    if(context.indexCol!==p){context.indexCol=p;}
+                    return;
+                }
 
                 // elem.style.left = context.getItemLeft(num2) + 'px';
                 // elem.style.top = context.getItemTop(num2) + 'px';
-                // elem.classList.remove('rmTransition')
-            }
-
-            
-
-
+                // elem.style.zIndex = 0;
+                let num2 = context.getLocalIndex(centerX,centerY);
+                context.$store.commit('excSavedPosition',{'num1':num,'num2':num2});
+                context.$nextTick(()=>{
+                    context.refreshContent();
+                    // console.log(context.itemMoveMxTime*1000);
+                    setTimeout(()=>{
+                        elem.classList.remove('rmTransition');
+                        context.timer = false;
+                        },context.itemMoveMxTime*1000+50); 
+                });                
+                               
+            }            
         },
         
        
@@ -351,7 +405,7 @@ export default{
     box-sizing: border-box;
     width:vw(1000);
     height: vh(520);
-    border: 1px solid red;
+    // border: 1px solid red;
     // overflow: hidden;
 
 
@@ -359,7 +413,8 @@ export default{
     // height: vh(580);
     // @include changeHeight(&,50);
     .outerContainer{
-        border: 1px solid green;
+        // border: 1px solid green;
+        overflow: hidden;
         box-sizing: border-box;
         position: relative;
         margin-left: auto;
@@ -392,7 +447,7 @@ export default{
             }
             .rmTransition{
                 transition: none;
-                z-index: 15;
+                z-index: 1;
             }
         }
     }

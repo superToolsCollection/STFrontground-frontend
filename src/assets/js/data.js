@@ -1745,19 +1745,22 @@ dataShow.prototype.deleteSave = function(key){
     let [i,j] = [parseInt(s1),parseInt(s2)];
     this.mainContent[i].data[j].isSave = false;
 
-    for(let n=loc;n<this.loveItem.length-1;n++){
+    let n=loc;
+    for(;n<this.loveItem.length-1;n++){
         this.loveItem[n] = this.loveItem[n+1];
         this.saved[n] = this.saved[n+1];
+        this.saved[n].index -= 1; 
     }
+    this.saved[n].index = null;
     this.loveItem.pop();
     this.saved.pop();
 }
 dataShow.prototype.setSave = function(key){
-    this.loveItem.push(key);
-    
+    this.loveItem.push(key);    
     let [s1,s2] = key.split('&');
     let [i,j] = [parseInt(s1),parseInt(s2)];
     this.mainContent[i].data[j].isSave = true;
+    this.mainContent[i].data[j].index = this.saved.length;
     this.saved.push(this.mainContent[i].data[j]);
 }
 
